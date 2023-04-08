@@ -1,10 +1,13 @@
 package ui.tabs;
 
+import ui.NewPlane;
+
 public class Home extends javax.swing.JPanel {
 
 
     public Home() {
         initComponents();
+        setActions();
     }
 
     private void initComponents() {
@@ -80,6 +83,10 @@ public class Home extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(nextBtn)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+    }
+
+    public void setActions() {
+        addPlaneBtn.addActionListener((act) -> NewPlane.run());
     }
 
     private javax.swing.JButton updateBtn;
