@@ -5,7 +5,7 @@ import java.time.temporal.ChronoUnit;
 
 import entity.enums.PassengerPreference;
 
-public class Passenger {
+public class Passenger implements Comparable<Passenger> {
 
     private String name;
     private String id;
@@ -67,5 +67,23 @@ public class Passenger {
 
     public void setPreference(PassengerPreference preference) {
         this.preference = preference;
+    }
+
+    public static String[] headers() {
+        return new String[] { "Nombre", "ID", "Nacionalidad", "Asiento" };
+    }
+
+    public String[] getTableData() {
+        return new String[] { name, id, nationality, seat.toString() };
+    }
+
+    @Override
+    public String toString() {
+        return name + " - " + id + " - " + nationality + " - " + birthday.toString() + " - " + seat.toString();
+    }
+
+    @Override
+    public int compareTo(Passenger o) {
+        return id.compareTo(o.id);
     }
 }

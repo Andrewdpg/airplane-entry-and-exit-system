@@ -1,0 +1,161 @@
+name;id;nationality;birthday;age;seat-type;column;row;preference-type
+Melissa Smith;16905540;Uruguay;13/03/1959;64;1;A;1;0
+Mark Bush;85535256;Noruega;4/08/1955;67;0;A;2;0
+Mary Calhoun;70412033;Mozambique;23/01/1970;53;0;A;3;0
+Tina Benitez;27306404;Sudáfrica;2/08/1976;46;0;A;4;0
+Kristen Hawkins;90745951;Nueva Caledonia;13/01/1956;67;0;A;5;0
+Kevin Harper;98387164;Venezuela;21/02/1995;28;1;A;6;0
+Stephen Brown;11974491;Turquía;10/03/1996;27;0;A;7;0
+Danielle Fuller;85868343;Polinesia Francesa;5/01/2008;15;0;A;8;0
+Catherine Roberts;25680727;Noruega;23/10/2007;15;0;A;9;0
+Paul Clark;67591349;Albania;11/04/1946;76;0;A;10;0
+Thomas Rivera;37943997;Turkmenistán;25/11/1955;67;1;A;11;0
+Todd Fields;21872295;Brasil;6/06/1970;52;0;A;12;0
+James James;10843327;Cuba;2/01/1996;27;1;A;13;0
+Heather Mcmillan;26050719;Dominica;6/09/1995;27;1;A;14;0
+Marissa Stone;29354655;Estonia;8/03/1997;26;1;A;15;0
+Patricia Wilcox;78063987;Territorio Británico del Océano Índico;8/04/1974;48;0;A;16;0
+Katrina Griffin;10729164;Puerto Rico;5/12/2007;15;1;A;17;0
+Marcus Williams;61577099;Malí;1/12/1991;31;1;A;18;0
+Nicholas Hernandez;58093024;Moldavia;27/06/2010;12;0;A;19;0
+Tara Kirby;23220590;Santa Lucía;23/06/1972;50;1;A;20;0
+Michelle Mitchell DDS;91254753;Malí;23/08/1988;34;0;B;1;0
+Nina Hicks;13356417;Chile;18/12/1964;58;0;B;2;0
+David Fowler;32960013;Kazajistán;23/10/1948;74;0;B;3;0
+Mary Mcconnell;43407884;Islandia;30/05/2001;21;1;B;4;0
+Christine Scott;37028486;Afganistán;15/09/1952;70;1;B;5;0
+Robert Dickson;90270206;Guatemala;26/05/1951;71;0;B;6;0
+Jared Johnson;40986734;Marruecos;6/01/1992;31;0;B;7;0
+Jade Harrison;70615413;Croacia;17/02/1948;75;0;B;8;0
+Adrienne Gallegos;77583159;Níger;11/09/1989;33;1;B;9;0
+Linda Parker;27011140;San Cristóbal y Nieves;14/10/1999;23;1;B;10;0
+William Adams;70690154;Surinam;27/04/1959;63;1;B;11;0
+Amanda Larson;85942302;República Checa;8/11/1978;44;0;B;12;0
+Michael Meyer;81715150;Uganda;22/07/1959;63;1;B;13;0
+Patricia Hoover;89721559;Groenlandia;21/10/1975;47;1;B;14;0
+Megan Lane;87950049;República Dominicana;21/08/2005;17;0;B;15;0
+Elizabeth Hayes;23744201;San Vicente y las Granadinas;29/04/2010;12;1;B;16;0
+Rachael Patterson;41705134;Malta;15/04/2002;20;0;B;17;0
+Molly Miller;51256245;Antártida ;21/10/1957;65;1;B;18;0
+Dawn Smith;76246263;Madagascar;27/08/1984;38;0;B;19;0
+Victor Jones;20659901;República del Congo;1/10/2001;21;1;B;20;0
+Brittany Whitney;57794959;República Dominicana;11/05/1989;33;1;C;1;0
+Lynn Arnold;77103531;Bermudas;19/02/1996;27;0;C;2;0
+Eric Ali;13979409;Aruba;6/06/1991;31;1;C;3;0
+Tracy Brown;23098753;Malí;22/08/1953;69;1;C;4;0
+Ronald Gordon;61150340;Granada;3/01/1975;48;0;C;5;0
+Tyler Weaver;49183029;Antártida ;18/02/1997;26;1;C;6;0
+Brian Reyes;98507541;Armenia;28/05/1967;55;1;C;7;0
+Mark Wilson;29540003;Territorio Británico del Océano Índico;20/04/1960;62;0;C;8;0
+Tina Holt;69827697;Bangladés;2/01/1957;66;1;C;9;0
+Tara Myers;59579553;Egipto;4/07/1996;26;0;C;10;0
+Sara Ward;12554788;Noruega;23/01/1968;55;0;C;11;0
+Lori Knox;77873995;Afganistán;9/02/1971;52;1;C;12;0
+Jamie Cervantes;52300885;Gabón;22/02/1971;52;1;C;13;0
+Paula Mueller;11292159;La Federación de Rusia ;26/12/1972;50;1;C;14;0
+Edward Green;43401273;Luxemburgo;5/03/1951;72;0;C;15;0
+Corey Kelly;35120323;Ghana;22/12/1956;66;0;C;16;0
+Stephanie Williamson;43378598;Mónaco;5/07/1987;35;0;C;17;0
+Ashley Waters;43223724;Aruba;28/04/1955;67;1;C;18;0
+Julia Gibson;81809860;Macao;10/12/1976;46;1;C;19;0
+Taylor Duffy;31148677;Antillas Holandesas ;7/01/1987;36;1;C;20;0
+Antonio Sharp;37234097;Territorios del sur francés ;25/04/1945;77;1;D;1;0
+Jessica Kirby;95553038;Gambia;10/12/1955;67;1;D;2;0
+Nicole Villa;32565626;Lesoto;27/11/1964;58;0;D;3;0
+Christina Shaw;15903058;Islas menores  de EE.UU.;18/10/1947;75;1;D;4;0
+Richard Brown;23136384;Somalia;2/09/1945;77;1;D;5;0
+Brian Kirk;18611379;Suecia ;23/09/1950;72;0;D;6;0
+Julie Wiley;53489369;Yemen;13/05/1997;25;0;D;7;0
+Wanda Kim;47057176;Anguila;27/08/1987;35;0;D;8;0
+Timothy James;74170364;Burundi;19/04/2009;13;1;D;9;0
+Amanda Stone;47440899;Perú;11/05/1995;27;1;D;10;0
+Joshua Brooks;96804337;Tanzania;3/01/1982;41;0;D;11;0
+Paula Lucero;54366155;Alemania ;25/11/1957;65;0;D;12;0
+Thomas Allen;44204857;Hungría;13/12/1950;72;0;D;13;0
+Mr. Bryan Cox;97912543;Georgia;11/10/1960;62;1;D;14;0
+Sara Bell;99214598;Islas Cook;14/04/2004;18;0;D;15;0
+Jennifer Russell;46860653;República Centroafricana;24/05/1978;44;1;D;16;0
+Rachel Rodriguez;99221325;Perú;29/12/2008;14;1;D;17;0
+Michael Watts;31004332;Camboya;22/04/1997;25;1;D;18;0
+Joshua Montgomery;62189798;Georgia;7/08/1947;75;1;D;19;0
+Ronald Quinn;49199342;Afganistán;1/05/1948;74;0;D;20;0
+Adrian Bond;55943048;Perú;20/04/1998;24;1;E;1;0
+Martin Ramirez;73606767;Chile;15/10/1998;24;0;E;2;0
+Amanda Alvarez;62119484;Islas Pitcairn;28/02/1961;62;1;E;3;0
+James Perkins;90053400;Gabón;25/04/1948;74;1;E;4;0
+Dustin Mccormick;74933053;Filipinas ;13/12/1957;65;0;E;5;0
+Natalie Murray;56081379;Estados Unidos;1/08/2008;14;0;E;6;0
+Kimberly Williams;40079596;Corea del Norte;27/02/1986;37;0;E;7;0
+Jennifer Henderson;30609348;Angola;27/06/1950;72;0;E;8;0
+Cynthia Hall;20440958;República Democrática del Congo;9/02/1960;63;1;E;9;0
+Amber Parker;35554604;Gambia;7/04/1952;70;1;E;10;0
+Kristen Baker;30957768;Ciudad del Vaticano;6/04/2006;16;1;E;11;0
+Courtney Potter;40375290;Bután;20/11/1958;64;1;E;12;0
+Regina Castro;74166820;Ciudad del Vaticano;20/03/1965;58;1;E;13;0
+Kendra Garcia;80122266;Lesoto;29/11/1995;27;0;E;14;0
+Kathryn Daniels;17426510;Corea del Norte;25/11/1994;28;0;E;15;0
+Jason Evans;16082590;Angola;8/02/2005;18;1;E;16;0
+Alexander Bryant;67858898;Tailandia;5/01/1995;28;0;E;17;0
+Patricia Moore;56923500;Angola;2/03/1962;61;0;E;18;0
+Bryan Silva;70558729;Mónaco;21/08/1979;43;1;E;19;0
+William Bishop;97313370;Vietnam;17/11/1958;64;0;E;20;0
+Scott Rivera;38967806;Libia;21/02/1966;57;1;F;1;0
+John Stewart;39219419;Estonia;27/07/2002;20;1;F;2;0
+Holly Davidson;61465384;Níger;23/02/1947;76;0;F;3;0
+Debra Smith;23703008;Gambia;2/03/1997;26;1;F;4;0
+Jasmine Mendez;93343698;Andorra;21/10/1979;43;1;F;5;0
+Allison Steele;91681931;Bélgica;11/11/1960;62;1;F;6;0
+Kevin Rosales;56104690;Antártida ;29/08/1993;29;0;F;7;0
+Dan Maynard;91512383;Siria;27/02/2007;16;1;F;8;0
+Benjamin Kelley;83864350;Italia;22/02/1975;48;1;F;9;0
+Jonathan White;20322045;Luxemburgo;12/07/2007;15;1;F;10;0
+Jennifer Bradford;51622967;Islas Malvinas;14/01/1960;63;0;F;11;0
+Robert Ross;77362309;Las;17/11/2005;17;0;F;12;0
+Jeffrey Jackson;38909036;Portugal;24/05/1972;50;1;F;13;0
+Christopher Burke;55072522;Países Bajos;4/02/1948;75;1;F;14;0
+Ana Richard;22477009;República Dominicana;20/06/1991;31;0;F;15;0
+Tommy Miller;17472483;Túnez;14/04/1977;45;0;F;16;0
+Mark Green DDS;48034437;Sudáfrica;11/06/1953;69;1;F;17;0
+Lisa Dawson;17363298;Irak;7/02/1979;44;1;F;18;0
+David Phillips;29251672;Argelia;5/05/1950;72;1;F;19;0
+Tamara Rowe;67656450;Islas Malvinas;15/08/2006;16;0;F;20;0
+Crystal Vaughn;75586170;Martinica;14/05/1985;37;0;G;1;0
+Cynthia Scott;93920432;Namibia;4/11/1963;59;0;G;2;0
+Rose Olson;52881090;Estados Unidos;16/11/2003;19;1;G;3;0
+Tyler Harris;83391695;Guayana Francesa;6/06/1972;50;1;G;4;0
+Justin Moore;50072554;Kazajistán;7/11/1960;62;1;G;5;0
+Donald Sanchez;83469402;Irán;8/02/1980;43;1;G;6;0
+Albert Vaughn;72923841;Polonia;29/09/1963;59;0;G;7;0
+James Brown;16351626;Israel;15/01/1962;61;0;G;8;0
+Kenneth Stevenson;51023086;Dominica;3/02/1980;43;0;G;9;0
+Christine Martin;69289383;Surinam;3/11/2002;20;0;G;10;0
+Shelby Hunt;99727350;Chile;23/02/1979;44;1;G;11;0
+Richard Hayes;20608113;Islas Cocos;3/10/2001;21;0;G;12;0
+John Smith;61692777;Suiza;9/11/1963;59;0;G;13;0
+Scott Weber;29596805;Hungría;1/09/1982;40;0;G;14;0
+Cassandra Frost;36691623;Islas menores  de EE.UU.;7/10/2006;16;0;G;15;0
+Diane Conner;56835114;Ucrania;18/01/1960;63;0;G;16;0
+Elijah Fisher;10134697;Isla de Navidad;19/06/2005;17;0;G;17;0
+Jodi Burgess;45091020;Brasil;13/01/1957;66;1;G;18;0
+Brandi Becker;42450932;Palaos;20/12/1968;54;0;G;19;0
+Angela Ramos;61942280;Costa Rica;21/06/1999;23;1;G;20;0
+Dawn Burnett;50803792;Jordania;21/04/1993;29;1;H;1;0
+Latoya Kelly;81463419;Haití;30/12/1955;67;0;H;2;0
+Steven Ross;80898358;Bulgaria;25/08/1963;59;0;H;3;0
+Sarah Walker;18189243;Kuwait;11/11/2009;13;1;H;4;0
+Rebecca Obrien;24803822;Maldivas;2/08/1946;76;1;H;5;0
+Cody Prince;67404572;Guyana;12/05/2002;20;1;H;6;0
+Darryl Elliott;83776331;Bahamas;3/11/1974;48;1;H;7;0
+Kristin Briggs;97713037;Malí;5/10/1971;51;0;H;8;1
+Mary Grant;78597924;Angola;3/02/1984;39;1;H;9;1
+Fernando Moss;79920609;Singapur;8/03/1960;63;1;H;10;1
+Jacqueline Price;86754610;Singapur;8/03/1998;25;0;H;11;1
+Sarah Harris;15908182;Turkmenistán;2/10/1960;62;0;H;12;1
+Melanie Hernandez;73133098;Nigeria;4/02/1963;60;0;H;13;1
+Arthur Moore;46950416;Tokelau;20/11/1996;26;1;H;14;1
+Richard Kaiser;19120871;Zambia;1/03/1958;65;0;H;15;1
+Jillian Henderson;14796399;Costa de Marfil;18/07/1978;44;1;H;16;1
+Jessica Ellis;44385889;Vietnam;7/10/1998;24;1;H;17;1
+Kimberly Young;45828535;La Federación de Rusia ;27/12/1979;43;1;H;18;2
+Mitchell Spencer II;99954872;Antártida ;15/08/1959;63;1;H;19;2
+Todd Brown;31092159;Pakistán;28/08/1946;76;1;H;20;2

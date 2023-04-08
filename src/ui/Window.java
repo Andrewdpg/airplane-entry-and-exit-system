@@ -15,10 +15,12 @@ public class Window extends javax.swing.JFrame {
         tabs = new javax.swing.JTabbedPane();
 
         homeTab = new Home((plane) -> {
+            passengersTab = new Passengers(plane, (passengers) -> {});
+            tabs.setComponentAt(1, passengersTab);
             tabs.setSelectedIndex(1);
         });
         tabs.addTab("Inicio", homeTab);
-        tabs.addTab("Pasajeros", new Passengers());
+        tabs.addTab("Pasajeros", new Passengers(null));
         tabs.setEnabledAt(1, false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -68,4 +70,5 @@ public class Window extends javax.swing.JFrame {
 
     private javax.swing.JTabbedPane tabs;
     private Home homeTab;
+    private Passengers passengersTab;
 }
