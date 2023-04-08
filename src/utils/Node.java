@@ -1,6 +1,6 @@
 package utils;
 
-public class Node<K extends Comparable<K>, V> {
+public class Node<K extends Comparable<K>, V> implements Comparable<Node<K,V>>{
 
     private K key;
     private V value;
@@ -32,6 +32,11 @@ public class Node<K extends Comparable<K>, V> {
     @Override
     public String toString() {
         return "{" + key + "," + value.toString() + "}";
+    }
+
+    @Override
+    public int compareTo(Node<K, V> o) {
+        return key.compareTo(o.getKey());
     }
 
 }
