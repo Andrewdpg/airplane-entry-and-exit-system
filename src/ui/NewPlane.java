@@ -1,8 +1,21 @@
 package ui;
 
+import java.util.LinkedList;
+
+import javax.swing.JOptionPane;
+
+import entity.Plane;
+import entity.Section;
+import utils.Storage;
+
 public class NewPlane extends javax.swing.JFrame {
 
+    private int rowCount;
+    private int columnCount;
+    LinkedList<Section> sections;
+
     public NewPlane() {
+        sections = new LinkedList<>();
     }
 
     private void initComponents() {
@@ -261,10 +274,108 @@ public class NewPlane extends javax.swing.JFrame {
         setVisible(true);
         setAlwaysOnTop(true);
         initComponents();
+        setActions();
+    }
+
+    public void setActions() {
+        nextBtn.addActionListener((act) -> {
+            if (validRowCount() && validFlightID()) {
+                rowsTf.setEnabled(false);
+                columnsCB.setEnabled(false);
+                flightIdTf.setEnabled(false);
+                nextBtn.setEnabled(false);
+                table.setEnabled(true);
+                saveBtn.setEnabled(true);
+                addSectionBtn.setEnabled(true);
+                initRowTf.setEnabled(true);
+                endRowTf.setEnabled(true);
+                columnCount = Integer.valueOf(columnsCB.getItemAt(columnsCB.getSelectedIndex()));
+            }
+        });
+
+        addSectionBtn.addActionListener((act) -> {
+            if (validSection()) {
+                int init = Integer.min(Integer.parseInt(endRowTf.getText()), Integer.parseInt(initRowTf.getText()));
+
+                int end = Integer.max(Integer.parseInt(endRowTf.getText()), Integer.parseInt(initRowTf.getText()));
+
+                sections.add(new Section(init, end));
+                model.addRow(new String[] { String.valueOf(init), String.valueOf(end) });
+                initRowTf.setText("");
+                endRowTf.setText("");
+            }
+        });
+
+        deleteBtn.addActionListener((act) -> {
+            if (table.getSelectedRow() != -1) {
+                sections.remove(table.getSelectedRow());
+                model.removeRow(table.getSelectedRow());
+            }
+        });
+
+        saveBtn.addActionListener((act) -> {
+            if (Storage.saveJsonTo("data/plane/" + flightIdTf.getText() + ".txt",
+                    new Plane(flightIdTf.getText(), columnCount, rowCount, sections))) {
+                dispose();
+            }
+        });
     }
 
     public static void run() {
         new NewPlane().init();
+    }
+
+    public boolean validRowCount() {
+        try {
+            rowCount = Integer.parseInt(rowsTf.getText());
+            if (rowCount < 10) {
+                JOptionPane.showMessageDialog(null, "Debe haber al menos 10 filas");
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Valor de filas inválido", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validFlightID() {
+        for (String name : Storage.getFileNamesAt("data/plane")) {
+            if (name.replace(".txt", "").equals(flightIdTf.getText())) {
+                JOptionPane.showMessageDialog(null, "La id del avión ya existe");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validSection() {
+        int newInit;
+        int newEnd;
+        try {
+            newInit = Integer.parseInt(initRowTf.getText());
+            newEnd = Integer.parseInt(endRowTf.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Valores ingresados inválidos", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (newInit > rowCount || newEnd > rowCount || newInit <= 0 || newEnd <= 0) {
+            JOptionPane.showMessageDialog(null, "Valores fuera del rango de filas", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        for (int i = 0; i < sections.size(); i++) {
+            int init = sections.get(i).getStart();
+            int end = sections.get(i).getEnd();
+            if ((newInit >= init && newInit <= end) || (newEnd >= init && newEnd <= end)) {
+                JOptionPane.showMessageDialog(null, "Rango de sección ya asignado", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        return true;
     }
 
     private javax.swing.JButton addSectionBtn;

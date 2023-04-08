@@ -11,7 +11,7 @@ public class MaxHeap<V> extends Heap<Double, V> implements IPriorityQueue<Double
         heapify(data, heapSize, i);
     }
 
-    public Node<Double, V>[] gett() {
+    public Node<Double, V>[] getTree() {
         return data;
     }
 

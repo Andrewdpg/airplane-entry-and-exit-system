@@ -1,6 +1,9 @@
 package ui.tabs;
 
+import javax.swing.JOptionPane;
+
 import ui.NewPlane;
+import utils.Storage;
 
 public class Home extends javax.swing.JPanel {
 
@@ -20,6 +23,8 @@ public class Home extends javax.swing.JPanel {
         updateBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+
+        initList();
 
         jScrollPane1.setViewportView(planeList);
         jLabel1.setText("Selecciona el avión");
@@ -87,6 +92,35 @@ public class Home extends javax.swing.JPanel {
 
     public void setActions() {
         addPlaneBtn.addActionListener((act) -> NewPlane.run());
+        updateBtn.addActionListener((act) -> initList());
+        deleteBtn.addActionListener((act) -> {
+            if (planeList.getSelectedValue() == null) {
+                return;
+            }
+            if (planeList.getSelectedValue().equals("Default.txt")) {
+                JOptionPane.showMessageDialog(null, "No puede eliminarse el avión por defecto", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (Storage.deleteFile("data/plane/" + planeList.getSelectedValue())) {
+                initList();
+            }
+        });
+    }
+
+    public void initList() {
+        listModel = new javax.swing.AbstractListModel<String>() {
+            String[] strings = Storage.getFileNamesAt("data/plane");
+
+            public int getSize() {
+                return strings.length;
+            }
+
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        };
+        planeList.setModel(listModel);
     }
 
     private javax.swing.JButton updateBtn;
@@ -97,4 +131,5 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JButton nextBtn;
     private javax.swing.JButton addPlaneBtn;
     private javax.swing.JList<String> planeList;
+    private javax.swing.AbstractListModel<String> listModel;
 }

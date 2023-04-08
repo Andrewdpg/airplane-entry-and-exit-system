@@ -38,7 +38,7 @@ public class PriorityQueueTest {
         heap.insert(80.0, "B");
 
         assertEquals("[{100.0,A}, {80.0,B}, {40.0,D}, {60.0,C}, null, null, null, null, null, null]",
-                Arrays.toString(heap.gett()));
+                Arrays.toString(heap.getTree()));
         assertEquals(4, heap.size());
     }
 
