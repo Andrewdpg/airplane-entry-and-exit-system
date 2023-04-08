@@ -2,15 +2,19 @@ package ui.tabs;
 
 import javax.swing.JOptionPane;
 
+import entity.Plane;
+import lambda.ChangeTab;
 import ui.NewPlane;
 import utils.Storage;
 
 public class Home extends javax.swing.JPanel {
 
+    ChangeTab<Plane> onContinue;
 
-    public Home() {
+    public Home(ChangeTab<Plane> onContinue) {
         initComponents();
         setActions();
+        this.onContinue = onContinue;
     }
 
     private void initComponents() {
@@ -93,6 +97,19 @@ public class Home extends javax.swing.JPanel {
     public void setActions() {
         addPlaneBtn.addActionListener((act) -> NewPlane.run());
         updateBtn.addActionListener((act) -> initList());
+        nextBtn.addActionListener((act) -> {
+            if (planeList.getSelectedValue() != null) {
+                try {
+                    onContinue.change(Storage.loadJsonFrom("data/plane/" + planeList.getSelectedValue(), Plane.class));
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Archivo no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                return;
+            }
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un elemento de la lista", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+
+        });
         deleteBtn.addActionListener((act) -> {
             if (planeList.getSelectedValue() == null) {
                 return;
