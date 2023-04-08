@@ -63,7 +63,10 @@ public class MaxHeap<V> extends Heap<Double, V> implements IPriorityQueue<Double
     }
 
     @Override
-    public void insert(Double key, V value) {
+    public void insert(Double key, V value) throws IndexOutOfBoundsException {
+        if(heapSize >= data.length){
+            throw new IndexOutOfBoundsException();
+        }
         Node<Double, V> node = new Node<>(key, value);
         heapSize++;
         data[heapSize - 1] = new Node<>(Double.MIN_VALUE, value);
