@@ -17,7 +17,8 @@ public class Window extends javax.swing.JFrame {
 
         homeTab = new Home((plane) -> {
             passengersTab = new Passengers(plane, (passengers) -> {
-                arrivalTab = new Arrival(passengers);
+                arrivalTab = new Arrival(passengers, plane, (entranceList) -> {
+                });
                 tabs.setComponentAt(2, arrivalTab);
                 tabs.setSelectedIndex(2);
             });
@@ -26,7 +27,7 @@ public class Window extends javax.swing.JFrame {
         });
         tabs.addTab("Inicio", homeTab);
         tabs.addTab("Pasajeros", new Passengers(null));
-        tabs.addTab("Llegada", new Arrival(null));
+        tabs.addTab("Llegada", new Arrival());
         tabs.setEnabledAt(1, false);
         tabs.setEnabledAt(2, false);
 

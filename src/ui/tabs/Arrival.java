@@ -1,17 +1,38 @@
 package ui.tabs;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 import entity.Passenger;
+import entity.Plane;
+import lambda.ChangeTab;
 import utils.HashTable;
+import utils.MaxHeap;
 
 public class Arrival extends javax.swing.JPanel {
 
     private HashTable<String, Passenger> passengers;
+    private Plane plane;
+    private MaxHeap<Passenger> entranceList;
+    private Long initTime;
+    private Passenger selectedPassenger;
+    private ChangeTab<MaxHeap<Passenger>> onContinue;
 
-    public Arrival(HashTable<String, Passenger> passengers) {
+    public Arrival() {
         initComponents();
+        setActions();
+    }
+
+    public Arrival(HashTable<String, Passenger> passengers, Plane plane, ChangeTab<MaxHeap<Passenger>> onContinue) {
+        initComponents();
+        setActions();
         this.passengers = passengers;
+        if (passengers != null) {
+            entranceList = new MaxHeap<>(passengers.size());
+            initTime = System.currentTimeMillis();
+            this.onContinue = onContinue;
+            this.plane = plane;
+        }
     }
 
     private void initComponents() {
@@ -158,6 +179,34 @@ public class Arrival extends javax.swing.JPanel {
                                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(continueBtn)
                                         .addContainerGap())));
+    }
+
+    public void setActions() {
+        searchBtn.addActionListener((act) -> {
+            selectedPassenger = passengers.get(passengerIdTf.getText());
+            if (selectedPassenger != null) {
+                ageLbl.setText(String.valueOf(selectedPassenger.getAge()));
+                nameLbl.setText(selectedPassenger.getName());
+                registerArrivalBtn.setEnabled(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Pasajero no encontrado");
+            }
+
+        });
+        registerArrivalBtn.addActionListener((act) -> {
+            registerArrivalBtn.setEnabled(false);
+            passengerIdTf.setText("");
+            nameLbl.setText("");
+            ageLbl.setText("");
+            entranceList.insert(selectedPassenger.getPriority(initTime, plane), selectedPassenger);
+            model.addElement(selectedPassenger.getName());
+        });
+
+        continueBtn.addActionListener((act) -> onContinue.change(entranceList));
+    }
+
+    public MaxHeap<Passenger> getEntranceList() {
+        return entranceList;
     }
 
     private javax.swing.JLabel ageLbl;

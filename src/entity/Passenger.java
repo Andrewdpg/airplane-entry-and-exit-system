@@ -86,4 +86,8 @@ public class Passenger implements Comparable<Passenger> {
     public int compareTo(Passenger o) {
         return id.compareTo(o.id);
     }
+
+    public Double getPriority(Long initTime, Plane plane) {
+        return 0.0;
+    }
 }
