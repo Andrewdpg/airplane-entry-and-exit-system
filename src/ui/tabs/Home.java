@@ -71,7 +71,7 @@ public class Home extends javax.swing.JPanel {
                                                 .addGap(0, 0, Short.MAX_VALUE)))
                                 .addContainerGap())
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(175, 175, 175)
+                                .addGap(235, 235,235)
                                 .addComponent(jLabel2)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         layout.setVerticalGroup(

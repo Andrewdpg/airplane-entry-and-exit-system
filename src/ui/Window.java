@@ -1,5 +1,6 @@
 package ui;
 
+import ui.tabs.Arrival;
 import ui.tabs.Home;
 import ui.tabs.Passengers;
 
@@ -15,13 +16,19 @@ public class Window extends javax.swing.JFrame {
         tabs = new javax.swing.JTabbedPane();
 
         homeTab = new Home((plane) -> {
-            passengersTab = new Passengers(plane, (passengers) -> {});
+            passengersTab = new Passengers(plane, (passengers) -> {
+                arrivalTab = new Arrival(passengers);
+                tabs.setComponentAt(2, arrivalTab);
+                tabs.setSelectedIndex(2);
+            });
             tabs.setComponentAt(1, passengersTab);
             tabs.setSelectedIndex(1);
         });
         tabs.addTab("Inicio", homeTab);
         tabs.addTab("Pasajeros", new Passengers(null));
+        tabs.addTab("Llegada", new Arrival(null));
         tabs.setEnabledAt(1, false);
+        tabs.setEnabledAt(2, false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,4 +78,5 @@ public class Window extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tabs;
     private Home homeTab;
     private Passengers passengersTab;
+    private Arrival arrivalTab;
 }

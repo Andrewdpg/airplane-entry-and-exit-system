@@ -63,6 +63,7 @@ public class Passengers extends javax.swing.JPanel {
 		};
 
 		title.setText("CARGAR LISTA DE PASAJEROS");
+		title.setFont(new java.awt.Font("Segoe UI", 1, 12));
 		pathLbl.setText("Ruta al archivo:");
 		pathTf.setText("data/Passengers.txt");
 		rowCountLbl.setText("Número de pasajeros: 0");
@@ -72,7 +73,6 @@ public class Passengers extends javax.swing.JPanel {
 		clearBtn.setText("Limpiar");
 		table.setModel(model);
 		tableScroll.setViewportView(table);
-
 		javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(this);
 		setLayout(panelLayout);
 		panelLayout.setHorizontalGroup(
@@ -82,7 +82,7 @@ public class Passengers extends javax.swing.JPanel {
 										javax.swing.GroupLayout.Alignment.LEADING)
 										.addGroup(panelLayout
 												.createSequentialGroup()
-												.addGap(149, 149, 149)
+												.addGap(180, 180, 180)
 												.addComponent(title))
 										.addGroup(panelLayout
 												.createSequentialGroup()
@@ -195,10 +195,8 @@ public class Passengers extends javax.swing.JPanel {
 	public void loadPassengers(String path) {
 		try {
 			model.setRowCount(0);
-			System.out.println(passengers);
 			passengers = null;
 			passengers = loadPassengersTxtFrom(path);
-			System.out.println(passengers);
 			rowCountLbl.setText("Número de pasajeros: " + model.getRowCount());
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Ruta inválida");
