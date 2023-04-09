@@ -7,6 +7,9 @@ import entity.enums.PassengerPreference;
 
 public class Passenger implements Comparable<Passenger> {
 
+    public static final int LISTED = 1;
+    public static final int UNLISTED = 0;
+    
     private String name;
     private String id;
     private String nationality;
@@ -14,7 +17,10 @@ public class Passenger implements Comparable<Passenger> {
     private Seat seat;
     private PassengerPreference preference;
 
+    transient int state;
+
     public Passenger() {
+        state = UNLISTED;
     }
 
     public String getName() {
@@ -67,6 +73,14 @@ public class Passenger implements Comparable<Passenger> {
 
     public void setPreference(PassengerPreference preference) {
         this.preference = preference;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public int getState() {
+        return this.state;
     }
 
     public static String[] headers() {

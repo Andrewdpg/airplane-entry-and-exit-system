@@ -185,9 +185,13 @@ public class Arrival extends javax.swing.JPanel {
         searchBtn.addActionListener((act) -> {
             selectedPassenger = passengers.get(passengerIdTf.getText());
             if (selectedPassenger != null) {
-                ageLbl.setText(String.valueOf(selectedPassenger.getAge()));
-                nameLbl.setText(selectedPassenger.getName());
-                registerArrivalBtn.setEnabled(true);
+                if(selectedPassenger.getState() == Passenger.UNLISTED){
+                    ageLbl.setText(String.valueOf(selectedPassenger.getAge()));
+                    nameLbl.setText(selectedPassenger.getName());
+                    registerArrivalBtn.setEnabled(true);
+                }else{
+                    JOptionPane.showMessageDialog(null, "El pasajero ya se encuentra en la lista");
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Pasajero no encontrado");
             }
@@ -200,6 +204,8 @@ public class Arrival extends javax.swing.JPanel {
             ageLbl.setText("");
             entranceList.insert(selectedPassenger.getPriority(initTime, plane), selectedPassenger);
             model.addElement(selectedPassenger.getName());
+            selectedPassenger.setState(Passenger.LISTED);
+            System.out.println(passengers.get(selectedPassenger.getId()).getState());
         });
 
         continueBtn.addActionListener((act) -> onContinue.change(entranceList));
