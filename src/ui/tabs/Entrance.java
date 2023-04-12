@@ -1,10 +1,48 @@
 package ui.tabs;
 
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+import entity.Plane;
+
 public class Entrance extends javax.swing.JPanel {
+
+    private Plane plane;
 
     public Entrance() {
         initComponents();
     }
+
+    public Entrance(Plane plane) {
+        initComponents();
+        this.plane = plane;
+        initPlaneGrid();
+    }
+
+    private void initPlaneGrid() {
+        int spaceBetween = 3;
+        int size = 50;
+        int panelWidth = size * plane.getColumns() + spaceBetween * (plane.getColumns() - 1);
+        int panelHeight = size * plane.getRows() + spaceBetween * (plane.getRows() - 1);
+
+        panel.setLayout(new GridLayout(plane.getColumns(), plane.getRows(), spaceBetween, spaceBetween));
+        panel.setSize(panelWidth, panelHeight);
+        for (int i = 0; i < plane.getColumns(); i++) {
+            for (int index = 0; index < plane.getRows(); index++) {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(size, 20));
+                button.setFont(new Font("Segoe UI", 0, 8));
+                button.setText((index + 1) + "" + Character.valueOf((char) (65 + i)));
+                panel.add(button);
+            }
+        }
+        jScrollPane4.setViewportView(panel);
+    }
+
     private void initComponents() {
 
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -19,6 +57,7 @@ public class Entrance extends javax.swing.JPanel {
         passengerIdTf = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         searchBtn = new javax.swing.JButton();
+        panel = new JPanel();
         
         setPreferredSize(new java.awt.Dimension(538, 329));
 
@@ -174,5 +213,6 @@ public class Entrance extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField passengerIdTf;
+    private javax.swing.JPanel panel;
 
 }

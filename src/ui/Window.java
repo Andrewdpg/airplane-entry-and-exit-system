@@ -88,7 +88,7 @@ public class Window extends javax.swing.JFrame {
     }
 
     private void arrivalChangeTab() {
-        entranceTab = new Entrance();
+        entranceTab = new Entrance(arrivalTab.getPlane());
         tabs.setComponentAt(3, entranceTab);
         tabs.setSelectedIndex(3);
     }
