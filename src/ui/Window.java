@@ -3,6 +3,7 @@ package ui;
 import entity.Passenger;
 import entity.Plane;
 import ui.tabs.Arrival;
+import ui.tabs.Entrance;
 import ui.tabs.Home;
 import ui.tabs.Passengers;
 import utils.HashTable;
@@ -22,8 +23,10 @@ public class Window extends javax.swing.JFrame {
         tabs.addTab("Inicio", homeTab);
         tabs.addTab("Pasajeros", new Passengers());
         tabs.addTab("Llegada", new Arrival());
+        tabs.addTab("Entrada", new Entrance());
         tabs.setEnabledAt(1, false);
         tabs.setEnabledAt(2, false);
+        tabs.setEnabledAt(3, false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,10 +88,14 @@ public class Window extends javax.swing.JFrame {
     }
 
     private void arrivalChangeTab() {
+        entranceTab = new Entrance();
+        tabs.setComponentAt(3, entranceTab);
+        tabs.setSelectedIndex(3);
     }
 
     private javax.swing.JTabbedPane tabs;
     private Home homeTab;
     private Passengers passengersTab;
     private Arrival arrivalTab;
+    private Entrance entranceTab;
 }
