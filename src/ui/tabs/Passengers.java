@@ -30,17 +30,15 @@ public class Passengers extends javax.swing.JPanel {
 	private HashTable<String, Passenger> passengers;
 	private Plane plane;
 
-	public Passengers(Plane plane) {
+	public Passengers() {
 		initComponents();
 		setActions();
-		this.plane = plane;
 	}
 
-	public Passengers(Plane plane, ChangeTab<HashTable<String, Passenger>> onContinue) {
+	public Passengers(ChangeTab<HashTable<String, Passenger>> onContinue) {
 		initComponents();
 		setActions();
 		this.onContinue = onContinue;
-		this.plane = plane;
 	}
 
 	private void initComponents() {
@@ -252,6 +250,14 @@ public class Passengers extends javax.swing.JPanel {
 			throw new InvalidPassengerException(passenger);
 		}
 		model.addRow(passenger.getTableData());
+	}
+
+	public Plane getPlane() {
+		return plane;
+	}
+
+	public void setPlane(Plane plane) {
+		this.plane = plane;
 	}
 
 	private javax.swing.JButton continueBtn;

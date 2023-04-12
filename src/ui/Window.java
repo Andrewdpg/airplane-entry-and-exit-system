@@ -1,8 +1,11 @@
 package ui;
 
+import entity.Passenger;
+import entity.Plane;
 import ui.tabs.Arrival;
 import ui.tabs.Home;
 import ui.tabs.Passengers;
+import utils.HashTable;
 
 public class Window extends javax.swing.JFrame {
 
@@ -15,18 +18,9 @@ public class Window extends javax.swing.JFrame {
 
         tabs = new javax.swing.JTabbedPane();
 
-        homeTab = new Home((plane) -> {
-            passengersTab = new Passengers(plane, (passengers) -> {
-                arrivalTab = new Arrival(passengers, plane, (entranceList) -> {
-                });
-                tabs.setComponentAt(2, arrivalTab);
-                tabs.setSelectedIndex(2);
-            });
-            tabs.setComponentAt(1, passengersTab);
-            tabs.setSelectedIndex(1);
-        });
+        homeTab = new Home((plane) -> homeChangeTab(plane));
         tabs.addTab("Inicio", homeTab);
-        tabs.addTab("Pasajeros", new Passengers(null));
+        tabs.addTab("Pasajeros", new Passengers());
         tabs.addTab("Llegada", new Arrival());
         tabs.setEnabledAt(1, false);
         tabs.setEnabledAt(2, false);
@@ -74,6 +68,23 @@ public class Window extends javax.swing.JFrame {
         setVisible(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+    }
+
+    private void homeChangeTab(Plane plane) {
+        passengersTab = new Passengers((passengers) -> passengersChangeTab(passengers));
+        passengersTab.setPlane(plane);
+        tabs.setComponentAt(1, passengersTab);
+        tabs.setSelectedIndex(1);
+    }
+
+    private void passengersChangeTab(HashTable<String, Passenger> passengers) {
+        arrivalTab = new Arrival(passengers, (none) -> arrivalChangeTab());
+        arrivalTab.setPlane(passengersTab.getPlane());
+        tabs.setComponentAt(2, arrivalTab);
+        tabs.setSelectedIndex(2);
+    }
+
+    private void arrivalChangeTab() {
     }
 
     private javax.swing.JTabbedPane tabs;

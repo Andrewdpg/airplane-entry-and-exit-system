@@ -23,7 +23,7 @@ public class Arrival extends javax.swing.JPanel {
         setActions();
     }
 
-    public Arrival(HashTable<String, Passenger> passengers, Plane plane, ChangeTab<MaxHeap<Passenger>> onContinue) {
+    public Arrival(HashTable<String, Passenger> passengers, ChangeTab<MaxHeap<Passenger>> onContinue) {
         initComponents();
         setActions();
         this.passengers = passengers;
@@ -31,7 +31,6 @@ public class Arrival extends javax.swing.JPanel {
             entranceList = new MaxHeap<>(passengers.size());
             initTime = System.currentTimeMillis();
             this.onContinue = onContinue;
-            this.plane = plane;
         }
     }
 
@@ -185,11 +184,11 @@ public class Arrival extends javax.swing.JPanel {
         searchBtn.addActionListener((act) -> {
             selectedPassenger = passengers.get(passengerIdTf.getText());
             if (selectedPassenger != null) {
-                if(selectedPassenger.getState() == Passenger.UNLISTED){
+                if (selectedPassenger.getState() == Passenger.UNLISTED) {
                     ageLbl.setText(String.valueOf(selectedPassenger.getAge()));
                     nameLbl.setText(selectedPassenger.getName());
                     registerArrivalBtn.setEnabled(true);
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "El pasajero ya se encuentra en la lista");
                 }
             } else {
@@ -205,7 +204,6 @@ public class Arrival extends javax.swing.JPanel {
             entranceList.insert(selectedPassenger.getPriority(initTime, plane), selectedPassenger);
             model.addElement(selectedPassenger.getName());
             selectedPassenger.setState(Passenger.LISTED);
-            System.out.println(passengers.get(selectedPassenger.getId()).getState());
         });
 
         continueBtn.addActionListener((act) -> onContinue.change(entranceList));
@@ -213,6 +211,22 @@ public class Arrival extends javax.swing.JPanel {
 
     public MaxHeap<Passenger> getEntranceList() {
         return entranceList;
+    }
+
+    public Long getInitTime() {
+        return this.initTime;
+    }
+
+    public HashTable<String, Passenger> getPassengers() {
+        return passengers;
+    }
+
+    public void setPlane(Plane plane) {
+        this.plane = plane;
+    }
+
+    public Plane getPlane() {
+        return plane;
     }
 
     private javax.swing.JLabel ageLbl;
