@@ -5,22 +5,32 @@ import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import entity.Passenger;
 import entity.Plane;
+import utils.MaxHeap;
 
 public class Entrance extends javax.swing.JPanel {
 
     private Plane plane;
+    private MaxHeap<Passenger> arrived;
+    private Passenger currentPassenger;
+    private Passenger[][] passengers;
 
     public Entrance() {
         initComponents();
     }
 
-    public Entrance(Plane plane) {
+    public Entrance(Plane plane, MaxHeap<Passenger> arrived) {
         initComponents();
         this.plane = plane;
+        this.arrived = arrived;
+        passengers = new Passenger[plane.getRows()][plane.getColumns()];
+        nextPassenger();
         initPlaneGrid();
+        setActions();
     }
 
     private void initPlaneGrid() {
@@ -58,7 +68,7 @@ public class Entrance extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         searchBtn = new javax.swing.JButton();
         panel = new JPanel();
-        
+
         setPreferredSize(new java.awt.Dimension(538, 329));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12));
@@ -199,6 +209,33 @@ public class Entrance extends javax.swing.JPanel {
                                                 .addGap(0, 143, Short.MAX_VALUE))
                                         .addComponent(jScrollPane4))
                                 .addContainerGap()));
+    }
+
+    public void setActions() {
+        entranceBtn.addActionListener((act) -> {
+            if (currentPassenger != null) {
+                int row = currentPassenger.getSeat().getLocation().getRow() - 1;
+                int column = currentPassenger.getSeat().getLocation().getColumnValue() - 1;
+                passengers[row][column] = currentPassenger;
+                nextPassenger();
+            }
+        });
+        nextBtn.addActionListener((act) -> {
+            nextPassenger();
+        });
+    }
+
+    private void nextPassenger() {
+        currentPassenger = arrived.extract();
+        if (currentPassenger != null) {
+            nameLbl.setText(currentPassenger.getName());
+            idLbl.setText(currentPassenger.getId());
+        } else {
+            nameLbl.setText("");
+            idLbl.setText("");
+            nextBtn.setEnabled(false);
+            JOptionPane.showMessageDialog(null, "No hay más pasajeros en lista de llegada.");
+        }
     }
 
     private javax.swing.JLabel idLbl;
