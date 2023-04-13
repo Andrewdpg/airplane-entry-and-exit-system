@@ -7,6 +7,7 @@ import entity.enums.PassengerPreference;
 
 public class Passenger implements Comparable<Passenger> {
 
+    public static final int ON_BOARD =  2;
     public static final int LISTED = 1;
     public static final int UNLISTED = 0;
     

@@ -1,5 +1,6 @@
 package ui.tabs;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -10,14 +11,17 @@ import javax.swing.JPanel;
 
 import entity.Passenger;
 import entity.Plane;
+import utils.HashTable;
 import utils.MaxHeap;
 
 public class Entrance extends javax.swing.JPanel {
 
     private Plane plane;
     private MaxHeap<Passenger> arrived;
+    private HashTable<String, Passenger> passengersTable;
     private Passenger currentPassenger;
     private Passenger[][] passengers;
+    private Long initTime;
 
     public Entrance() {
         initComponents();
@@ -216,12 +220,44 @@ public class Entrance extends javax.swing.JPanel {
             if (currentPassenger != null) {
                 int row = currentPassenger.getSeat().getLocation().getRow() - 1;
                 int column = currentPassenger.getSeat().getLocation().getColumnValue() - 1;
+                int panelID = (plane.getRows() * column) + row;
                 passengers[row][column] = currentPassenger;
+                panel.getComponent(panelID).setFont(new Font("Segoe UI", 1, 8));
+                panel.getComponent(panelID).setForeground(new Color(50, 200, 50));
+                passengersTable.get(currentPassenger.getId()).setState(Passenger.ON_BOARD);
                 nextPassenger();
             }
         });
         nextBtn.addActionListener((act) -> {
+            passengersTable.get(currentPassenger.getId()).setState(Passenger.UNLISTED);
             nextPassenger();
+        });
+        searchBtn.addActionListener((act) -> {
+            if (currentPassenger != null) {
+                arrived.insert(Double.MAX_VALUE, currentPassenger);
+            }
+            currentPassenger = passengersTable.get(passengerIdTf.getText());
+            if (currentPassenger != null) {
+                nextBtn.setEnabled(true);
+                switch (currentPassenger.getState()) {
+                    case Passenger.UNLISTED:
+                        arrived.insert(currentPassenger.getPriority(initTime, plane), currentPassenger);
+                        currentPassenger.setState(Passenger.LISTED);
+                        JOptionPane.showMessageDialog(null, "Agregado a la lista de espera");
+                        break;
+                    case Passenger.LISTED:
+                        JOptionPane.showMessageDialog(null, "El pasajero ya se encuentra en lista de espera");
+                        break;
+                    case Passenger.ON_BOARD:
+                        JOptionPane.showMessageDialog(null, "El pasajero ya se encuentra a bordo del avión");
+                        break;
+                    default:
+                        break;
+                }
+                nextPassenger();
+            } else {
+                JOptionPane.showMessageDialog(null, "Pasajero no encontrado");
+            }
         });
     }
 
@@ -236,6 +272,14 @@ public class Entrance extends javax.swing.JPanel {
             nextBtn.setEnabled(false);
             JOptionPane.showMessageDialog(null, "No hay más pasajeros en lista de llegada.");
         }
+    }
+
+    public void setInitTime(Long time) {
+        this.initTime = time;
+    }
+
+    public void setPassengersTable(HashTable<String, Passenger> passengersTable) {
+        this.passengersTable = passengersTable;
     }
 
     private javax.swing.JLabel idLbl;
