@@ -100,7 +100,7 @@ public class Home extends javax.swing.JPanel {
         nextBtn.addActionListener((act) -> {
             if (planeList.getSelectedValue() != null) {
                 try {
-                    onContinue.change(Storage.loadJsonFrom("data/plane/" + planeList.getSelectedValue(), Plane.class));
+                    onContinue.change(Storage.loadJsonFrom(Plane.PATH + planeList.getSelectedValue(), Plane.class));
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Archivo no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -119,7 +119,7 @@ public class Home extends javax.swing.JPanel {
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            if (Storage.deleteFile("data/plane/" + planeList.getSelectedValue())) {
+            if (Storage.deleteFile(Plane.PATH + planeList.getSelectedValue())) {
                 initList();
             }
         });
@@ -127,7 +127,7 @@ public class Home extends javax.swing.JPanel {
 
     public void initList() {
         listModel = new javax.swing.AbstractListModel<String>() {
-            String[] strings = Storage.getFileNamesAt("data/plane");
+            String[] strings = Storage.getFileNamesAt(Plane.PATH);
 
             public int getSize() {
                 return strings.length;

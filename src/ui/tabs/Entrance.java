@@ -9,18 +9,21 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import entity.Flight;
 import entity.Passenger;
 import entity.Plane;
+import lambda.ChangeTab;
 import utils.HashTable;
 import utils.MaxHeap;
+import utils.Storage;
 
 public class Entrance extends javax.swing.JPanel {
 
-    private Plane plane;
-    private MaxHeap<Passenger> arrived;
     private HashTable<String, Passenger> passengersTable;
+    private MaxHeap<Passenger> arrived;
     private Passenger currentPassenger;
-    private Passenger[][] passengers;
+    private ChangeTab<Flight> onChange;
+    private Flight flight;
     private Long initTime;
 
     public Entrance() {
@@ -29,9 +32,8 @@ public class Entrance extends javax.swing.JPanel {
 
     public Entrance(Plane plane, MaxHeap<Passenger> arrived) {
         initComponents();
-        this.plane = plane;
+        this.flight = new Flight(plane, new Passenger[plane.getRows()][plane.getColumns()]);
         this.arrived = arrived;
-        passengers = new Passenger[plane.getRows()][plane.getColumns()];
         nextPassenger();
         initPlaneGrid();
         setActions();
@@ -40,13 +42,14 @@ public class Entrance extends javax.swing.JPanel {
     private void initPlaneGrid() {
         int spaceBetween = 3;
         int size = 50;
-        int panelWidth = size * plane.getColumns() + spaceBetween * (plane.getColumns() - 1);
-        int panelHeight = size * plane.getRows() + spaceBetween * (plane.getRows() - 1);
+        int panelWidth = size * flight.getPlane().getColumns() + spaceBetween * (flight.getPlane().getColumns() - 1);
+        int panelHeight = size * flight.getPlane().getRows() + spaceBetween * (flight.getPlane().getRows() - 1);
 
-        panel.setLayout(new GridLayout(plane.getColumns(), plane.getRows(), spaceBetween, spaceBetween));
+        panel.setLayout(new GridLayout(flight.getPlane().getColumns(), flight.getPlane().getRows(), spaceBetween,
+                spaceBetween));
         panel.setSize(panelWidth, panelHeight);
-        for (int i = 0; i < plane.getColumns(); i++) {
-            for (int index = 0; index < plane.getRows(); index++) {
+        for (int i = 0; i < flight.getPlane().getColumns(); i++) {
+            for (int index = 0; index < flight.getPlane().getRows(); index++) {
                 JButton button = new JButton();
                 button.setPreferredSize(new Dimension(size, 20));
                 button.setFont(new Font("Segoe UI", 0, 8));
@@ -59,18 +62,19 @@ public class Entrance extends javax.swing.JPanel {
 
     private void initComponents() {
 
+        passengerIdTf = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        idLbl = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        nameLbl = new javax.swing.JLabel();
-        entranceBtn = new javax.swing.JButton();
-        nextBtn = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
-        passengerIdTf = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
+        nameLbl = new javax.swing.JLabel();
+        idLbl = new javax.swing.JLabel();
+        entranceBtn = new javax.swing.JButton();
         searchBtn = new javax.swing.JButton();
+        finishBtn = new javax.swing.JButton();
+        nextBtn = new javax.swing.JButton();
         panel = new JPanel();
 
         setPreferredSize(new java.awt.Dimension(538, 329));
@@ -85,7 +89,7 @@ public class Entrance extends javax.swing.JPanel {
         jLabel14.setText("ID:");
 
         entranceBtn.setText("Entró");
-
+        finishBtn.setText("Comenzar vuelo");
         nextBtn.setText("Saltar");
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12));
@@ -154,7 +158,12 @@ public class Entrance extends javax.swing.JPanel {
                                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
                                                                 layout.createSequentialGroup()
                                                                         .addGap(0, 0, Short.MAX_VALUE)
-                                                                        .addComponent(searchBtn)))
+                                                                        .addComponent(searchBtn))
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                layout.createSequentialGroup()
+                                                                        .addGap(0, 0, Short.MAX_VALUE)
+                                                                        .addComponent(finishBtn)))
+
                                                 .addContainerGap()))));
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,7 +219,8 @@ public class Entrance extends javax.swing.JPanel {
                                                 .addPreferredGap(
                                                         javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(searchBtn)
-                                                .addGap(0, 143, Short.MAX_VALUE))
+                                                .addGap(0, 143, Short.MAX_VALUE)
+                                                .addComponent(finishBtn))
                                         .addComponent(jScrollPane4))
                                 .addContainerGap()));
     }
@@ -218,13 +228,12 @@ public class Entrance extends javax.swing.JPanel {
     public void setActions() {
         entranceBtn.addActionListener((act) -> {
             if (currentPassenger != null) {
-                int row = currentPassenger.getSeat().getLocation().getRow() - 1;
-                int column = currentPassenger.getSeat().getLocation().getColumnValue() - 1;
-                int panelID = (plane.getRows() * column) + row;
-                passengers[row][column] = currentPassenger;
+                currentPassenger.setState(Passenger.ON_BOARD);
+                flight.addPassenger(currentPassenger);
+                passengersTable.put(currentPassenger.getId(), currentPassenger);
+                int panelID = (flight.getPlane().getRows() * currentPassenger.getColumn()) + currentPassenger.getRow();
                 panel.getComponent(panelID).setFont(new Font("Segoe UI", 1, 8));
                 panel.getComponent(panelID).setForeground(new Color(50, 200, 50));
-                passengersTable.get(currentPassenger.getId()).setState(Passenger.ON_BOARD);
                 nextPassenger();
             }
         });
@@ -241,7 +250,7 @@ public class Entrance extends javax.swing.JPanel {
                 nextBtn.setEnabled(true);
                 switch (currentPassenger.getState()) {
                     case Passenger.UNLISTED:
-                        arrived.insert(currentPassenger.getPriority(initTime, plane), currentPassenger);
+                        arrived.insert(currentPassenger.getPriority(initTime, flight.getPlane()), currentPassenger);
                         currentPassenger.setState(Passenger.LISTED);
                         JOptionPane.showMessageDialog(null, "Agregado a la lista de espera");
                         break;
@@ -257,6 +266,16 @@ public class Entrance extends javax.swing.JPanel {
                 nextPassenger();
             } else {
                 JOptionPane.showMessageDialog(null, "Pasajero no encontrado");
+            }
+        });
+        finishBtn.addActionListener((act) -> {
+            if (flight.getOnBoard() == 0) {
+                JOptionPane.showMessageDialog(null, "Debe haber pasajeros");
+            } else if (currentPassenger != null) {
+                JOptionPane.showMessageDialog(null, "Aún hay pasajeros en espera");
+            } else {
+                Storage.saveJsonTo(Flight.PATH + flight.getPlane().getId() + ".txt", flight);
+                onChange.change(flight);
             }
         });
     }
@@ -282,10 +301,15 @@ public class Entrance extends javax.swing.JPanel {
         this.passengersTable = passengersTable;
     }
 
+    public void setOnChange(ChangeTab<Flight> onChange) {
+        this.onChange = onChange;
+    }
+
     private javax.swing.JLabel idLbl;
     private javax.swing.JButton entranceBtn;
     private javax.swing.JButton nextBtn;
     private javax.swing.JButton searchBtn;
+    private javax.swing.JButton finishBtn;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

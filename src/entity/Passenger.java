@@ -7,7 +7,7 @@ import entity.enums.PassengerPreference;
 
 public class Passenger implements Comparable<Passenger> {
 
-    public static final int ON_BOARD =  2;
+    public static final int ON_BOARD = 2;
     public static final int LISTED = 1;
     public static final int UNLISTED = 0;
     
@@ -22,6 +22,14 @@ public class Passenger implements Comparable<Passenger> {
 
     public Passenger() {
         state = UNLISTED;
+    }
+
+    public int getRow() {
+        return getSeat().getLocation().getRow() - 1;
+    }
+
+    public int getColumn() {
+        return getSeat().getLocation().getColumnValue() - 1;
     }
 
     public String getName() {

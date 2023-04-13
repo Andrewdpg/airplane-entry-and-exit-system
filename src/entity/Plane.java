@@ -3,6 +3,8 @@ package entity;
 import java.util.List;
 
 public class Plane {
+    
+    public static final String PATH = "data/plane/";
 
     String id;
     int columns;

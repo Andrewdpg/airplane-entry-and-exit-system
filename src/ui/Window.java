@@ -89,10 +89,16 @@ public class Window extends javax.swing.JFrame {
 
     private void arrivalChangeTab() {
         entranceTab = new Entrance(arrivalTab.getPlane(), arrivalTab.getEntranceList());
+        entranceTab.setOnChange((flight) -> entranceChangeTab());
         entranceTab.setInitTime(arrivalTab.getInitTime());
         entranceTab.setPassengersTable(arrivalTab.getPassengers());
         tabs.setComponentAt(3, entranceTab);
         tabs.setSelectedIndex(3);
+    }
+
+    private void entranceChangeTab() {
+        homeTab.initList();
+        tabs.setSelectedIndex(0);
     }
 
     private javax.swing.JTabbedPane tabs;

@@ -21,7 +21,7 @@ public class NewPlane extends javax.swing.JFrame {
     private void initComponents() {
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        flightIdTf = new javax.swing.JTextField();
+        planeIdTf = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         columnsCB = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
@@ -121,7 +121,7 @@ public class NewPlane extends javax.swing.JFrame {
                                                                 .addGroup(jPanel2Layout
                                                                         .createParallelGroup(
                                                                                 javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(flightIdTf)
+                                                                        .addComponent(planeIdTf)
                                                                         .addGroup(jPanel2Layout
                                                                                 .createSequentialGroup()
                                                                                 .addComponent(jLabel3)
@@ -183,7 +183,7 @@ public class NewPlane extends javax.swing.JFrame {
                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(flightIdTf,
+                                        .addComponent(planeIdTf,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -282,7 +282,7 @@ public class NewPlane extends javax.swing.JFrame {
             if (validRowCount() && validFlightID()) {
                 rowsTf.setEnabled(false);
                 columnsCB.setEnabled(false);
-                flightIdTf.setEnabled(false);
+                planeIdTf.setEnabled(false);
                 nextBtn.setEnabled(false);
                 table.setEnabled(true);
                 saveBtn.setEnabled(true);
@@ -314,8 +314,8 @@ public class NewPlane extends javax.swing.JFrame {
         });
 
         saveBtn.addActionListener((act) -> {
-            if (Storage.saveJsonTo("data/plane/" + flightIdTf.getText() + ".txt",
-                    new Plane(flightIdTf.getText(), columnCount, rowCount, sections))) {
+            if (Storage.saveJsonTo(Plane.PATH + planeIdTf.getText() + ".txt",
+                    new Plane(planeIdTf.getText(), columnCount, rowCount, sections))) {
                 dispose();
             }
         });
@@ -342,7 +342,7 @@ public class NewPlane extends javax.swing.JFrame {
 
     public boolean validFlightID() {
         for (String name : Storage.getFileNamesAt("data/plane")) {
-            if (name.replace(".txt", "").equals(flightIdTf.getText())) {
+            if (name.replace(".txt", "").equals(planeIdTf.getText())) {
                 JOptionPane.showMessageDialog(null, "La id del avión ya existe");
                 return false;
             }
@@ -381,7 +381,7 @@ public class NewPlane extends javax.swing.JFrame {
     private javax.swing.JButton addSectionBtn;
     private javax.swing.JComboBox<String> columnsCB;
     private javax.swing.JTextField endRowTf;
-    private javax.swing.JTextField flightIdTf;
+    private javax.swing.JTextField planeIdTf;
     private javax.swing.JTextField initRowTf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
