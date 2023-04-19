@@ -14,6 +14,9 @@ import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
 
+import entity.Flight;
+import entity.Plane;
+
 public class Storage {
 
     public static <T> Boolean saveJsonTo(String path, T obj) {
@@ -62,5 +65,29 @@ public class Storage {
             return false;
         }
         return file.delete();
+    }
+    public static String[] currentFlights(){
+        return Storage.getFileNamesAt(Flight.PATH);
+    }
+
+    public static String[] availablePlanes(){
+        int flightCount = 0;
+        String[] currentFlights = Storage.getFileNamesAt(Flight.PATH);
+        String[] temp = Storage.getFileNamesAt(Plane.PATH);
+        for (int i = 0; i < temp.length; i++) {
+            if (Data.binarySearch(currentFlights, temp[i]) != -1) {
+                temp[i] = null;
+                flightCount++;
+            }
+        }
+        String[] availablePlane = new String[temp.length - flightCount];
+        for (int i = 0, j = 0; i < availablePlane.length;) {
+            if (temp[j] != null) {
+                availablePlane[i] = temp[j];
+                i++;
+            }
+            j++;
+        }
+        return availablePlane;
     }
 }
