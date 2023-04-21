@@ -6,16 +6,23 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 
 import entity.Flight;
+import entity.Passenger;
 import ui.components.PlaneView;
 import utils.Storage;
 
 public class Landing extends javax.swing.JFrame {
 
     private Flight flight;
+    private Passenger currentPassenger;
+    int currentX;
+    int currentY;
 
     public Landing(String flightPath) throws FileNotFoundException, IOException {
         flight = Storage.loadJsonFrom(flightPath, Flight.class);
         initComponents();
+        currentX = flight.getPlane().getColumns() / 2 - 1;
+        currentY = 0;
+        nextPassenger();
     }
 
     private void initComponents() {
@@ -123,6 +130,35 @@ public class Landing extends javax.swing.JFrame {
                                         .addContainerGap())));
 
         pack();
+    }
+
+    public void nextPassenger() {
+        for (; currentY < flight.getPlane().getRows() - 1; currentY++) {
+            for (int i = 0; i < flight.getPlane().getColumns() - 1; i++) {
+                currentPassenger = flight.getPassengers()[currentY][currentX];
+                if (currentPassenger != null) {
+                    planeView.setSeatAs(currentY, currentX, PlaneView.SELECTED);
+                    nameLbl.setText(currentPassenger.getName());
+                    seatLbl.setText(currentPassenger.getSeat().toString());
+                    nextX();
+                    return;
+                }
+                nextX();
+            }
+        }
+    }
+
+    public void nextX() {
+        int middleLeft = flight.getPlane().getColumns() / 2 - 1;
+        if (currentX <= middleLeft) {
+            currentX = middleLeft + Math.abs(middleLeft - currentX) + 1;
+        } else {
+            if (currentX != flight.getPlane().getColumns() - 1) {
+                currentX = middleLeft - Math.abs(middleLeft - currentX);
+            } else {
+                currentX = flight.getPlane().getColumns() / 2 - 1;
+            }
+        }
     }
 
     public void init() {

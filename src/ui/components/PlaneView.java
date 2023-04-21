@@ -12,6 +12,7 @@ import entity.Flight;
 
 public class PlaneView extends JPanel {
 
+    public static final int SELECTED = 2;
     public static final int TAKEN = 1;
     public static final int FREE = 0;
 
@@ -27,7 +28,7 @@ public class PlaneView extends JPanel {
 
     private void initPlaneGrid() {
         int spaceBetween = 3;
-        int size = 50;
+        int size = 55;
         int panelWidth = size * flight.getPlane().getColumns() + spaceBetween * (flight.getPlane().getColumns() - 1);
         int panelHeight = size * flight.getPlane().getRows() + spaceBetween * (flight.getPlane().getRows() - 1);
 
@@ -38,9 +39,13 @@ public class PlaneView extends JPanel {
             for (int index = 0; index < flight.getPlane().getRows(); index++) {
                 JButton button = new JButton();
                 button.setPreferredSize(new Dimension(size, 20));
-                button.setFont(new Font("Segoe UI", 0, 8));
                 button.setText((index + 1) + "" + Character.valueOf((char) (65 + i)));
                 add(button);
+                if (flight.getPassengers()[index][i] != null) {
+                    setSeatAs(index, i, TAKEN);
+                } else {
+                    setSeatAs(index, i, FREE);
+                }
             }
         }
     }
@@ -49,10 +54,16 @@ public class PlaneView extends JPanel {
         int panelIndex = (flight.getPlane().getRows() * column) + row;
         switch (state) {
             case FREE:
+                getComponent(panelIndex).setFont(new Font("Segoe UI", 0, 10));
+                getComponent(panelIndex).setForeground(new Color(50, 200, 50));
                 break;
             case TAKEN:
-                getComponent(panelIndex).setFont(new Font("Segoe UI", 1, 8));
-                getComponent(panelIndex).setForeground(new Color(50, 200, 50));
+                getComponent(panelIndex).setFont(new Font("Segoe UI", 1, 10));
+                getComponent(panelIndex).setForeground(new Color(200, 50, 50));
+                break;
+            case SELECTED:
+                getComponent(panelIndex).setFont(new Font("Segoe UI", 1, 10));
+                getComponent(panelIndex).setForeground(new Color(255, 140, 0));
                 break;
             default:
                 break;
