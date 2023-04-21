@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 import entity.Plane;
 import lambda.ChangeTab;
+import ui.Landing;
 import ui.NewPlane;
 import utils.Storage;
 
@@ -82,7 +83,8 @@ public class Home extends javax.swing.JPanel {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jScrollPane2))
+                                .addComponent(jScrollPane2)
+                                .addGap(0, 0, 10))
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,7 +94,8 @@ public class Home extends javax.swing.JPanel {
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
                                                 layout.createSequentialGroup()
                                                         .addGap(0, 0, Short.MAX_VALUE)
-                                                        .addComponent(landingBtn)))));
+                                                        .addComponent(landingBtn)
+                                                        .addGap(0, 0, 10)))));
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
@@ -147,6 +150,13 @@ public class Home extends javax.swing.JPanel {
             }
             if (Storage.deleteFile(Plane.PATH + planeList.getSelectedValue())) {
                 initList();
+            }
+        });
+        landingBtn.addActionListener((act) -> {
+            if (flightList.getSelectedValue() != null) {
+                Landing.run(flightList.getSelectedValue());
+            } else {
+                JOptionPane.showMessageDialog(null, "Debes seleccionar un vuelo");
             }
         });
     }
