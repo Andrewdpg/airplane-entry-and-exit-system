@@ -2,6 +2,7 @@ package ui.tabs;
 
 import javax.swing.JOptionPane;
 
+import entity.Flight;
 import entity.Plane;
 import lambda.ChangeTab;
 import ui.Landing;
@@ -154,7 +155,7 @@ public class Home extends javax.swing.JPanel {
         });
         landingBtn.addActionListener((act) -> {
             if (flightList.getSelectedValue() != null) {
-                Landing.run(flightList.getSelectedValue());
+                Landing.run(Flight.PATH + flightList.getSelectedValue());
             } else {
                 JOptionPane.showMessageDialog(null, "Debes seleccionar un vuelo");
             }

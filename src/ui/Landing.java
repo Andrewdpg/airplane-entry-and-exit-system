@@ -1,8 +1,20 @@
 package ui;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import javax.swing.JOptionPane;
+
+import entity.Flight;
+import ui.components.PlaneView;
+import utils.Storage;
+
 public class Landing extends javax.swing.JFrame {
 
-    public Landing(String flightPath) {
+    private Flight flight;
+
+    public Landing(String flightPath) throws FileNotFoundException, IOException {
+        flight = Storage.loadJsonFrom(flightPath, Flight.class);
         initComponents();
     }
 
@@ -15,6 +27,8 @@ public class Landing extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         nameLbl = new javax.swing.JLabel();
         leftBtn = new javax.swing.JButton();
+        planeView = new PlaneView(flight);
+        jScrollPane4.setViewportView(planeView);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,15 +138,19 @@ public class Landing extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Landing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
         setVisible(true);
         setAlwaysOnTop(true);
-        initComponents();
     }
 
     public static void run(String path) {
-        new Landing(path).init();
+        try {
+            Landing landing = new Landing(path);
+            landing.init();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Archivo inválido");
+        }
     }
 
     private javax.swing.JLabel jLabel11;
@@ -142,4 +160,5 @@ public class Landing extends javax.swing.JFrame {
     private javax.swing.JButton leftBtn;
     private javax.swing.JLabel nameLbl;
     private javax.swing.JLabel seatLbl;
+    private PlaneView planeView;
 }

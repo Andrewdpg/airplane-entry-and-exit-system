@@ -66,14 +66,17 @@ public class Storage {
         }
         return file.delete();
     }
-    public static String[] currentFlights(){
+
+    public static String[] currentFlights() {
         return Storage.getFileNamesAt(Flight.PATH);
     }
 
-    public static String[] availablePlanes(){
+    public static String[] availablePlanes() {
         int flightCount = 0;
         String[] currentFlights = Storage.getFileNamesAt(Flight.PATH);
         String[] temp = Storage.getFileNamesAt(Plane.PATH);
+        Data.quicksort(currentFlights);
+        Data.quicksort(temp);
         for (int i = 0; i < temp.length; i++) {
             if (Data.binarySearch(currentFlights, temp[i]) != -1) {
                 temp[i] = null;

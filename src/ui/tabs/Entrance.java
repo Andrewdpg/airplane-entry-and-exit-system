@@ -1,18 +1,12 @@
 package ui.tabs;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import entity.Flight;
 import entity.Passenger;
 import entity.Plane;
 import lambda.ChangeTab;
+import ui.components.PlaneView;
 import utils.HashTable;
 import utils.MaxHeap;
 import utils.Storage;
@@ -31,33 +25,13 @@ public class Entrance extends javax.swing.JPanel {
     }
 
     public Entrance(Plane plane, MaxHeap<Passenger> arrived) {
-        initComponents();
         this.flight = new Flight(plane, new Passenger[plane.getRows()][plane.getColumns()]);
         this.arrived = arrived;
+        initComponents();
         nextPassenger();
-        initPlaneGrid();
         setActions();
-    }
-
-    private void initPlaneGrid() {
-        int spaceBetween = 3;
-        int size = 50;
-        int panelWidth = size * flight.getPlane().getColumns() + spaceBetween * (flight.getPlane().getColumns() - 1);
-        int panelHeight = size * flight.getPlane().getRows() + spaceBetween * (flight.getPlane().getRows() - 1);
-
-        panel.setLayout(new GridLayout(flight.getPlane().getColumns(), flight.getPlane().getRows(), spaceBetween,
-                spaceBetween));
-        panel.setSize(panelWidth, panelHeight);
-        for (int i = 0; i < flight.getPlane().getColumns(); i++) {
-            for (int index = 0; index < flight.getPlane().getRows(); index++) {
-                JButton button = new JButton();
-                button.setPreferredSize(new Dimension(size, 20));
-                button.setFont(new Font("Segoe UI", 0, 8));
-                button.setText((index + 1) + "" + Character.valueOf((char) (65 + i)));
-                panel.add(button);
-            }
-        }
-        jScrollPane4.setViewportView(panel);
+        planeView = new PlaneView(flight);
+        jScrollPane4.setViewportView(planeView);
     }
 
     private void initComponents() {
@@ -75,7 +49,8 @@ public class Entrance extends javax.swing.JPanel {
         searchBtn = new javax.swing.JButton();
         finishBtn = new javax.swing.JButton();
         nextBtn = new javax.swing.JButton();
-        panel = new JPanel();
+        planeView = new PlaneView();
+        jScrollPane4.setViewportView(planeView);
 
         setPreferredSize(new java.awt.Dimension(538, 329));
 
@@ -231,9 +206,7 @@ public class Entrance extends javax.swing.JPanel {
                 currentPassenger.setState(Passenger.ON_BOARD);
                 flight.addPassenger(currentPassenger);
                 passengersTable.put(currentPassenger.getId(), currentPassenger);
-                int panelID = (flight.getPlane().getRows() * currentPassenger.getColumn()) + currentPassenger.getRow();
-                panel.getComponent(panelID).setFont(new Font("Segoe UI", 1, 8));
-                panel.getComponent(panelID).setForeground(new Color(50, 200, 50));
+                planeView.setSeatAs(currentPassenger.getRow(), currentPassenger.getColumn(),PlaneView.TAKEN);
                 nextPassenger();
             }
         });
@@ -318,6 +291,5 @@ public class Entrance extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField passengerIdTf;
-    private javax.swing.JPanel panel;
-
+    private PlaneView planeView;
 }
