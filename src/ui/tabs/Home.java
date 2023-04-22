@@ -37,15 +37,15 @@ public class Home extends javax.swing.JPanel {
 
         jScrollPane1.setViewportView(planeList);
         jScrollPane2.setViewportView(flightList);
-        nextBtn.setText("Siguiente");
-        addPlaneBtn.setText("Nuevo");
-        updateBtn.setText("Actualizar");
-        deleteBtn.setText("Eliminar");
+        nextBtn.setText("Iniciar nuevo vuelo");
+        addPlaneBtn.setText("Nuevo avión");
+        updateBtn.setText("Actualizar lista");
+        deleteBtn.setText("Eliminar avión");
         landingBtn.setText("Comenzar descenso");
 
-        jLabel1.setText("Selecciona un avión disponible");
+        jLabel1.setText("Aviones disponibles");
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18));
-        jLabel2.setText("Avión");
+        jLabel2.setText("Sistema de vuelos");
         jLabel3.setText("Vuelos en curso");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -79,7 +79,7 @@ public class Home extends javax.swing.JPanel {
                                                 .addGap(0, 0, Short.MAX_VALUE)))
                                 .addContainerGap())
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(235, 235, 235)
+                                .addGap(215, 215, 215)
                                 .addComponent(jLabel2)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
