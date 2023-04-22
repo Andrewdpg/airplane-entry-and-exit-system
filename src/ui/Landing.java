@@ -14,14 +14,16 @@ public class Landing extends javax.swing.JFrame {
 
     private Flight flight;
     private Passenger currentPassenger;
-    int currentX;
-    int currentY;
+    private int currentX;
+    private int currentY;
+    private int xCount;
 
     public Landing(String flightPath) throws FileNotFoundException, IOException {
         flight = Storage.loadJsonFrom(flightPath, Flight.class);
         initComponents();
         currentX = -1;
         currentY = 0;
+        xCount = 0;
         nextPassenger();
         setActions();
     }
@@ -148,15 +150,20 @@ public class Landing extends javax.swing.JFrame {
     public void nextPassenger() {
         nextX();
         for (; currentY < flight.getPlane().getRows(); currentY++) {
-            currentPassenger = flight.getPassengers()[currentY][currentX];
-            if (currentPassenger != null) {
-                planeView.setSeatAs(currentY, currentX, PlaneView.SELECTED);
-                nameLbl.setText(currentPassenger.getName());
-                seatLbl.setText(currentPassenger.getSeat().toString());
-                return;
+            for (; xCount < flight.getPlane().getColumns();) {
+                xCount++;
+                currentPassenger = flight.getPassengers()[currentY][currentX];
+                if (currentPassenger != null) {
+                    planeView.setSeatAs(currentY, currentX, PlaneView.SELECTED);
+                    nameLbl.setText(currentPassenger.getName());
+                    seatLbl.setText(currentPassenger.getSeat().toString());
+                    return;
+                }
+                nextX();
             }
+            xCount = 0;
         }
-        JOptionPane.showMessageDialog(null, "Descenso terminado.\nNo hay más pasajeros a bordo.");
+        JOptionPane.showMessageDialog(this, "Descenso terminado.\nNo hay más pasajeros a bordo.");
         Storage.deleteFile(Flight.PATH + flight.getPlane().getId() + ".txt");
         dispose();
     }
