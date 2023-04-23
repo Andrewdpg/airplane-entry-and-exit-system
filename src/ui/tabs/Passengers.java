@@ -1,25 +1,16 @@
 package ui.tabs;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.time.LocalDate;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import entity.Location;
 import entity.Passenger;
 import entity.Plane;
-import entity.Seat;
-import entity.enums.PassengerPreference;
-import entity.enums.SeatType;
 import exception.InvalidPassengerException;
 import lambda.ChangeTab;
 import utils.HashTable;
+import utils.Storage;
 
 /**
  * @author Andrewpg
@@ -194,7 +185,7 @@ public class Passengers extends javax.swing.JPanel {
 		try {
 			model.setRowCount(0);
 			passengers = null;
-			passengers = loadPassengersTxtFrom(path);
+			passengers = Storage.loadPassengersTxtFrom(path, (passenger) -> loadToTable(passenger));
 			rowCountLbl.setText("Número de pasajeros: " + model.getRowCount());
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Ruta inválida");
@@ -209,39 +200,6 @@ public class Passengers extends javax.swing.JPanel {
 		} catch (IndexOutOfBoundsException e) {
 			JOptionPane.showMessageDialog(null, "El archivo seleccionado tiene un formato inválido");
 		}
-	}
-
-	public HashTable<String, Passenger> loadPassengersTxtFrom(String path)
-			throws IOException, FileNotFoundException, InvalidPassengerException {
-		File file = new File(path);
-		if (!file.exists()) {
-			throw new FileNotFoundException();
-		}
-		HashTable<String, Passenger> hashTable = new HashTable<>();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-		String line = reader.readLine();
-		while ((line = reader.readLine()) != null) {
-			
-			Passenger passenger = new Passenger();
-			passenger.setName(line.split(";")[0]);
-			passenger.setId(line.split(";")[1]);
-			passenger.setNationality(line.split(";")[2]);
-			passenger.setBirthday(LocalDate.of(Integer.parseInt(line.split(";")[3].split("/")[2]),
-					Integer.parseInt(line.split(";")[3].split("/")[1]),
-					Integer.parseInt(line.split(";")[3].split("/")[0])));
-			passenger.setSeat(new Seat(SeatType.values()[Integer.parseInt(
-					line.split(";")[5])], new Location(
-							Integer.parseInt(line.split(";")[7]), line.split(";")[6])));
-			passenger.setPreference(PassengerPreference.values()[Integer.parseInt(
-					line.split(";")[8])]);
-			hashTable.put(passenger.getId(), passenger);
-			loadToTable(passenger);
-		}
-		reader.close();
-		if(hashTable.size() == 0){
-			return null;
-		}
-		return hashTable;
 	}
 
 	public void loadToTable(Passenger passenger) throws InvalidPassengerException {

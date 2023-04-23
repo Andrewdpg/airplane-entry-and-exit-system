@@ -9,13 +9,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
 
 import entity.Flight;
+import entity.Location;
+import entity.Passenger;
 import entity.Plane;
+import entity.Seat;
+import entity.enums.PassengerPreference;
+import entity.enums.SeatType;
+import exception.InvalidPassengerException;
+import lambda.LoadToTable;
 
 public class Storage {
 
@@ -28,7 +36,6 @@ public class Storage {
             writer.flush();
             fos.close();
         } catch (Exception e) {
-            e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error guardando el archivo", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -92,5 +99,38 @@ public class Storage {
             j++;
         }
         return availablePlane;
+    }
+
+    public static HashTable<String, Passenger> loadPassengersTxtFrom(String path, LoadToTable tableAction)
+            throws IOException, FileNotFoundException, InvalidPassengerException {
+        File file = new File(path);
+        if (!file.exists()) {
+            throw new FileNotFoundException();
+        }
+        HashTable<String, Passenger> hashTable = new HashTable<>();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+        String line = reader.readLine();
+        while ((line = reader.readLine()) != null) {
+            Passenger passenger = new Passenger();
+            passenger.setName(line.split(";")[0]);
+            passenger.setId(line.split(";")[1]);
+            passenger.setNationality(line.split(";")[2]);
+            passenger.setBirthday(LocalDate.of(Integer.parseInt(line.split(";")[3].split("/")[2]),
+                    Integer.parseInt(line.split(";")[3].split("/")[1]),
+                    Integer.parseInt(line.split(";")[3].split("/")[0])));
+            passenger.setMiles(Integer.parseInt(line.split(";")[4]));
+            passenger.setSeat(new Seat(SeatType.values()[Integer.parseInt(
+                    line.split(";")[5])], new Location(
+                            Integer.parseInt(line.split(";")[7]), line.split(";")[6])));
+            passenger.setPreference(PassengerPreference.values()[Integer.parseInt(
+                    line.split(";")[8])]);
+            hashTable.put(passenger.getId(), passenger);
+            tableAction.load(passenger);
+        }
+        reader.close();
+        if (hashTable.size() == 0) {
+            return null;
+        }
+        return hashTable;
     }
 }

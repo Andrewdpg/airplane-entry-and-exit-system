@@ -4,17 +4,19 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 import entity.enums.PassengerPreference;
+import entity.enums.SeatType;
 
 public class Passenger implements Comparable<Passenger> {
 
     public static final int ON_BOARD = 2;
     public static final int LISTED = 1;
     public static final int UNLISTED = 0;
-    
+
     private String name;
     private String id;
     private String nationality;
     private LocalDate birthday;
+    private int miles;
     private Seat seat;
     private PassengerPreference preference;
 
@@ -68,6 +70,14 @@ public class Passenger implements Comparable<Passenger> {
         this.birthday = birthday;
     }
 
+    public int getMiles() {
+        return miles;
+    }
+
+    public void setMiles(int miles) {
+        this.miles = miles;
+    }
+
     public Seat getSeat() {
         return seat;
     }
@@ -111,6 +121,28 @@ public class Passenger implements Comparable<Passenger> {
     }
 
     public Double getPriority(Long initTime, Plane plane) {
-        return 0.0;
+        Double valuePerSection = valuePerSection(plane);
+        Double priority = valuePerSection;
+        if (seat.getType() == SeatType.FIRST_CLASS) {
+            if (preference == PassengerPreference.MEDICAL_ATTENTION) {
+                return valuePerSection * 1.999999;
+            }
+            if (getAge() >= 60) {
+                priority += 2.2;
+            }
+            priority += 2.7 - (2.7 / (miles + 1));
+        }
+        priority += 5 / ((System.currentTimeMillis() - initTime) / 1000);
+        return priority;
+    }
+
+    public Double valuePerSection(Plane plane) {
+        for (int i = 0; i < plane.getSections().length; i++) {
+            if (getRow() + 1 >= plane.getSections()[i].getStart() &&
+                    getRow() + 1 <= plane.getSections()[i].getEnd()) {
+                return 10.0 * i;
+            }
+        }
+        return Double.MIN_VALUE;
     }
 }

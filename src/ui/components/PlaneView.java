@@ -56,7 +56,6 @@ public class PlaneView extends JPanel {
             }
             UIManager.setLookAndFeel(previous);
         } catch (Exception e) {
-            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al iniciar la vista del avión");
         }
     }
