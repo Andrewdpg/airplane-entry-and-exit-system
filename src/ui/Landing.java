@@ -14,16 +14,10 @@ public class Landing extends javax.swing.JFrame {
 
     private Flight flight;
     private Passenger currentPassenger;
-    private int currentX;
-    private int currentY;
-    private int xCount;
 
     public Landing(String flightPath) throws FileNotFoundException, IOException {
         flight = Storage.loadJsonFrom(flightPath, Flight.class);
         initComponents();
-        currentX = -1;
-        currentY = 0;
-        xCount = 0;
         nextPassenger();
         setActions();
     }
@@ -138,50 +132,24 @@ public class Landing extends javax.swing.JFrame {
     public void setActions() {
         leftBtn.addActionListener((act) -> {
             if (currentPassenger != null) {
-                flight.setOnBoard(flight.getOnBoard() - 1);
-                flight.getPassengers()[currentY][currentX] = null;
-                planeView.setSeatAs(currentY, currentX, PlaneView.FREE);
+                flight.extractPassenger();
+                planeView.setSeatAs(currentPassenger.getRow(), currentPassenger.getColumn(), PlaneView.FREE);
                 Storage.saveJsonTo(Flight.PATH + flight.getPlane().getId() + ".txt", flight);
                 nextPassenger();
             }
         });
     }
 
-    public void nextPassenger() {
-        nextX();
-        for (; currentY < flight.getPlane().getRows(); currentY++) {
-            for (; xCount < flight.getPlane().getColumns();) {
-                xCount++;
-                currentPassenger = flight.getPassengers()[currentY][currentX];
-                if (currentPassenger != null) {
-                    planeView.setSeatAs(currentY, currentX, PlaneView.SELECTED);
-                    nameLbl.setText(currentPassenger.getName());
-                    seatLbl.setText(currentPassenger.getSeat().toString());
-                    return;
-                }
-                nextX();
-            }
-            xCount = 0;
-        }
-        JOptionPane.showMessageDialog(this, "Descenso terminado.\nNo hay más pasajeros a bordo.");
-        Storage.deleteFile(Flight.PATH + flight.getPlane().getId() + ".txt");
-        dispose();
-    }
-
-    public void nextX() {
-        if (currentX == -1) {
-            currentX = flight.getPlane().getColumns() / 2 - 1;
-            return;
-        }
-        int middleLeft = flight.getPlane().getColumns() / 2 - 1;
-        if (currentX <= middleLeft) {
-            currentX = middleLeft + Math.abs(middleLeft - currentX) + 1;
+    public void nextPassenger(){
+        currentPassenger = flight.nextPassenger();
+        if (currentPassenger != null) {
+            planeView.setSeatAs(currentPassenger.getRow(), currentPassenger.getColumn(), PlaneView.SELECTED);
+            nameLbl.setText(currentPassenger.getName());
+            seatLbl.setText(currentPassenger.getSeat().toString());
         } else {
-            if (currentX != flight.getPlane().getColumns() - 1) {
-                currentX = middleLeft - Math.abs(middleLeft - currentX);
-            } else {
-                currentX = middleLeft;
-            }
+            JOptionPane.showMessageDialog(this, "Descenso terminado.\nNo hay más pasajeros a bordo.");
+            Storage.deleteFile(Flight.PATH + flight.getPlane().getId() + ".txt");
+            dispose();
         }
     }
 
