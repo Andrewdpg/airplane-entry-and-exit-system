@@ -58,4 +58,10 @@ public class DataTest {
         Long totalTime = System.currentTimeMillis() - initTime;
         assertTrue(totalTime < 10 && position == 999997);
     }
+
+    @Test
+    public void emptyArrayTest(){
+        setupOrdered();
+        assertEquals(-1,Data.binarySearch(array,0));
+    }
 }

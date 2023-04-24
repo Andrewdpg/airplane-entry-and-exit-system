@@ -125,7 +125,7 @@ public class Passenger implements Comparable<Passenger> {
         Double priority = valuePerSection;
         if (seat.getType() == SeatType.FIRST_CLASS) {
             if (preference == PassengerPreference.MEDICAL_ATTENTION) {
-                return valuePerSection * 1.999999;
+                return valuePerSection * 1.9999999999;
             }
             if (getAge() >= 60) {
                 priority += 2.2;
@@ -137,9 +137,9 @@ public class Passenger implements Comparable<Passenger> {
     }
 
     public Double valuePerSection(Plane plane) {
-        for (int i = 0; i < plane.getSections().length; i++) {
-            if (getRow() + 1 >= plane.getSections()[i].getStart() &&
-                    getRow() + 1 <= plane.getSections()[i].getEnd()) {
+        for (int i = 1; i < plane.getSections().length+1; i++) {
+            if (getRow() + 1 >= plane.getSections()[i-1].getStart() &&
+                    getRow() + 1 <= plane.getSections()[i-1].getEnd()) {
                 return 10.0 * i;
             }
         }
