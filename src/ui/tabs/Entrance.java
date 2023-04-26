@@ -247,7 +247,7 @@ public class Entrance extends javax.swing.JPanel {
             } else if (currentPassenger != null) {
                 JOptionPane.showMessageDialog(null, "Aún hay pasajeros en espera");
             } else {
-                Storage.saveJsonTo(Flight.PATH + flight.getPlane().getId() + ".txt", flight);
+                Storage.saveJsonTo(Flight.PATH + flight.getPlane().getId() + ".json", flight);
                 onChange.change(flight);
             }
         });

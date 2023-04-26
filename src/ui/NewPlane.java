@@ -314,7 +314,7 @@ public class NewPlane extends javax.swing.JFrame {
         });
 
         saveBtn.addActionListener((act) -> {
-            if (Storage.saveJsonTo(Plane.PATH + planeIdTf.getText() + ".txt",
+            if (Storage.saveJsonTo(Plane.PATH + planeIdTf.getText() + ".json",
                     new Plane(planeIdTf.getText(), columnCount, rowCount, sections))) {
                 dispose();
             }
@@ -342,7 +342,7 @@ public class NewPlane extends javax.swing.JFrame {
 
     public boolean validFlightID() {
         for (String name : Storage.getFileNamesAt("data/plane")) {
-            if (name.replace(".txt", "").equals(planeIdTf.getText())) {
+            if (name.replace(".json", "").equals(planeIdTf.getText())) {
                 JOptionPane.showMessageDialog(null, "La id del avión ya existe");
                 return false;
             }

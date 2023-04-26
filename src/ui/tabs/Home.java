@@ -144,7 +144,7 @@ public class Home extends javax.swing.JPanel {
             if (planeList.getSelectedValue() == null) {
                 return;
             }
-            if (planeList.getSelectedValue().equals("Default.txt")) {
+            if (planeList.getSelectedValue().equals("Default.json")) {
                 JOptionPane.showMessageDialog(null, "No puede eliminarse el avión por defecto", "Error",
                         JOptionPane.ERROR_MESSAGE);
                 return;

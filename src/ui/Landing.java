@@ -134,7 +134,7 @@ public class Landing extends javax.swing.JFrame {
             if (currentPassenger != null) {
                 flight.extractPassenger();
                 planeView.setSeatAs(currentPassenger.getRow(), currentPassenger.getColumn(), PlaneView.FREE);
-                Storage.saveJsonTo(Flight.PATH + flight.getPlane().getId() + ".txt", flight);
+                Storage.saveJsonTo(Flight.PATH + flight.getPlane().getId() + ".json", flight);
                 nextPassenger();
             }
         });
@@ -148,7 +148,7 @@ public class Landing extends javax.swing.JFrame {
             seatLbl.setText(currentPassenger.getSeat().toString());
         } else {
             JOptionPane.showMessageDialog(this, "Descenso terminado.\nNo hay más pasajeros a bordo.");
-            Storage.deleteFile(Flight.PATH + flight.getPlane().getId() + ".txt");
+            Storage.deleteFile(Flight.PATH + flight.getPlane().getId() + ".json");
             dispose();
         }
     }
