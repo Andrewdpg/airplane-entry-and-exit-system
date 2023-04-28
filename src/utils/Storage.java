@@ -75,7 +75,11 @@ public class Storage {
     }
 
     public static String[] currentFlights() {
-        return Storage.getFileNamesAt(Flight.PATH);
+        String[] array = Storage.getFileNamesAt(Flight.PATH);
+        String[] flights  = new String[array.length];
+        for (int i = 0; i < flights.length; i++) 
+            flights[i] = array[i].replace(".json", "");
+        return flights;
     }
 
     public static String[] availablePlanes() {
@@ -93,7 +97,7 @@ public class Storage {
         String[] availablePlane = new String[temp.length - flightCount];
         for (int i = 0, j = 0; i < availablePlane.length;) {
             if (temp[j] != null) {
-                availablePlane[i] = temp[j];
+                availablePlane[i] = temp[j].replace(".json", "");
                 i++;
             }
             j++;

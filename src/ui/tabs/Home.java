@@ -142,7 +142,8 @@ public class Home extends javax.swing.JPanel {
         nextBtn.addActionListener((act) -> {
             if (planeList.getSelectedValue() != null) {
                 try {
-                    onContinue.change(Storage.loadJsonFrom(Plane.PATH + planeList.getSelectedValue(), Plane.class));
+                    onContinue.change(Storage.loadJsonFrom(Plane.PATH + planeList.getSelectedValue()
+                            + ".json", Plane.class));
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Archivo no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -156,18 +157,18 @@ public class Home extends javax.swing.JPanel {
             if (planeList.getSelectedValue() == null) {
                 return;
             }
-            if (planeList.getSelectedValue().equals("Default.json")) {
+            if (planeList.getSelectedValue().equals("Default")) {
                 JOptionPane.showMessageDialog(null, "No puede eliminarse el avión por defecto", "Error",
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            if (Storage.deleteFile(Plane.PATH + planeList.getSelectedValue())) {
+            if (Storage.deleteFile(Plane.PATH + planeList.getSelectedValue() + ".json")) {
                 initList();
             }
         });
         landingBtn.addActionListener((act) -> {
             if (flightList.getSelectedValue() != null) {
-                Landing.run(Flight.PATH + flightList.getSelectedValue());
+                Landing.run(Flight.PATH + flightList.getSelectedValue() + ".json");
             } else {
                 JOptionPane.showMessageDialog(null, "Debes seleccionar un vuelo");
             }
