@@ -1,5 +1,7 @@
 package ui.tabs;
 
+import java.awt.Font;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -49,29 +51,26 @@ public class Arrival extends javax.swing.JPanel {
         registerArrivalBtn = new javax.swing.JButton();
         searchBtn = new javax.swing.JButton();
         continueBtn = new javax.swing.JButton();
+        helpBtn = new javax.swing.JButton();
         registerArrivalBtn.setEnabled(false);
-
         model = new DefaultListModel<>();
 
         passengerList.setModel(model);
         jScrollPane3.setViewportView(passengerList);
-
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12));
         jLabel5.setText("Pasajeros presentes");
-
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12));
         jLabel6.setText("Llegada de pasajero");
-
         jLabel7.setText("ID:");
-
         jLabel8.setText("Nombre:");
-
         jLabel9.setText("Edad:");
-
         registerArrivalBtn.setText("Registrar llegada");
         searchBtn.setText("Buscar");
-
         continueBtn.setText("Continuar");
+        helpBtn.setText("?");
+        helpBtn.setFocusPainted(false);
+        helpBtn.setBorderPainted(false);
+        helpBtn.setFont(new Font("Segoe UI", 1, 12));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -121,10 +120,14 @@ public class Arrival extends javax.swing.JPanel {
                                                         .addPreferredGap(
                                                                 javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                         .addComponent(passengerIdTf)))
-                                        .addContainerGap())));
+                                        .addContainerGap()))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                layout.createSequentialGroup()
+                                        .addComponent(helpBtn)));
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGap(0, 300, Short.MAX_VALUE)
+                        .addComponent(helpBtn)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
                                         .addContainerGap()
@@ -205,8 +208,15 @@ public class Arrival extends javax.swing.JPanel {
             model.addElement(selectedPassenger.getName());
             selectedPassenger.setState(Passenger.LISTED);
         });
-
         continueBtn.addActionListener((act) -> onContinue.change(entranceList));
+        helpBtn.addActionListener((act) -> {
+            JOptionPane.showMessageDialog(this.getParent(), ""
+                    + "Pasajeros presentes: Lista de pasajeros que se han registrado (En orden de llegada).\n"
+                    + "Buscar: Busca al parajero, por su ID, en la lista cargada previamente.\n"
+                    + "Registrar llegada: Agrega al pasajero a la lista de llegada.\n"
+                    + "ID: Número de ID del pasajero a buscar y registrar.\n\n"
+                    + "Nota: No es necesario registrar pasajeros para continuar.");
+        });
     }
 
     public MaxHeap<Passenger> getEntranceList() {
@@ -231,6 +241,7 @@ public class Arrival extends javax.swing.JPanel {
 
     private javax.swing.JLabel ageLbl;
     private javax.swing.JButton continueBtn;
+    private javax.swing.JButton helpBtn;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

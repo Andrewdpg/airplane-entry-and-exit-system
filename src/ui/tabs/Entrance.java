@@ -1,5 +1,7 @@
 package ui.tabs;
 
+import java.awt.Font;
+
 import javax.swing.JOptionPane;
 
 import entity.Flight;
@@ -49,6 +51,7 @@ public class Entrance extends javax.swing.JPanel {
         searchBtn = new javax.swing.JButton();
         finishBtn = new javax.swing.JButton();
         nextBtn = new javax.swing.JButton();
+        helpBtn = new javax.swing.JButton();
         planeView = new PlaneView();
         jScrollPane4.setViewportView(planeView);
 
@@ -56,24 +59,22 @@ public class Entrance extends javax.swing.JPanel {
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12));
         jLabel11.setText("Pasajero actual");
-
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12));
         jLabel12.setText("Nombre:");
-
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12));
         jLabel14.setText("ID:");
-
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        jLabel13.setText("Búsqueda de pasajeros");
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        jLabel16.setText("ID:");
         entranceBtn.setText("Entró");
         finishBtn.setText("Comenzar vuelo");
         nextBtn.setText("Saltar");
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12));
-        jLabel13.setText("Búsqueda de pasajeros");
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12));
-        jLabel16.setText("ID:");
-
         searchBtn.setText("Buscar");
+        helpBtn.setText("?");
+        helpBtn.setFocusPainted(false);
+        helpBtn.setBorderPainted(false);
+        helpBtn.setFont(new Font("Segoe UI", 1, 12));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -139,9 +140,13 @@ public class Entrance extends javax.swing.JPanel {
                                                                         .addGap(0, 0, Short.MAX_VALUE)
                                                                         .addComponent(finishBtn)))
 
-                                                .addContainerGap()))));
+                                                .addContainerGap())))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                layout.createSequentialGroup()
+                                        .addComponent(helpBtn)));
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(helpBtn)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(
@@ -206,7 +211,7 @@ public class Entrance extends javax.swing.JPanel {
                 currentPassenger.setState(Passenger.ON_BOARD);
                 flight.addPassenger(currentPassenger);
                 passengersTable.put(currentPassenger.getId(), currentPassenger);
-                planeView.setSeatAs(currentPassenger.getRow(), currentPassenger.getColumn(),PlaneView.TAKEN);
+                planeView.setSeatAs(currentPassenger.getRow(), currentPassenger.getColumn(), PlaneView.TAKEN);
                 nextPassenger();
             }
         });
@@ -251,6 +256,17 @@ public class Entrance extends javax.swing.JPanel {
                 onChange.change(flight);
             }
         });
+        helpBtn.addActionListener((act) -> {
+            JOptionPane.showMessageDialog(this.getParent(), ""
+                    + "Panel izquierdo: Vista del estado de los asientos del avión:\n"
+                    + "         - Verde: Asiento libre.\n"
+                    + "         - Rojo: Asiento ocupado.\n\n"
+                    + "Pasajero actual: Pasajero con prioridad de entrada actual (quien debería entrar actualmente).\n"
+                    + "Entró: Indica que el pasajero actual ha abordado el avión y continúa con el siguiente en la lista/fila.\n"
+                    + "Saltar: Indica que el pasajero actual no ha abordado el avión y continúa con el siguiente en la lista/fila.\n"
+                    + "Busqueda de pasajeros: Busca un pasajero que no esté en lista de llegada para agregarlo a la lista/fila de entrada.\n"
+                    + "Comenzar vuelo: Guarda la información del vuelo (el avión seleccionado y los pasajeros a bordo)");
+        });
     }
 
     private void nextPassenger() {
@@ -283,6 +299,7 @@ public class Entrance extends javax.swing.JPanel {
     private javax.swing.JButton nextBtn;
     private javax.swing.JButton searchBtn;
     private javax.swing.JButton finishBtn;
+    private javax.swing.JButton helpBtn;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

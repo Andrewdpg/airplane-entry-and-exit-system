@@ -1,5 +1,6 @@
 package ui.tabs;
 
+import java.awt.Font;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
@@ -43,6 +44,7 @@ public class Passengers extends javax.swing.JPanel {
 		goBtn = new javax.swing.JButton();
 		continueBtn = new javax.swing.JButton();
 		clearBtn = new javax.swing.JButton();
+		helpBtn = new javax.swing.JButton();
 		model = new javax.swing.table.DefaultTableModel(null,
 				Passenger.headers()) {
 			@Override
@@ -60,6 +62,11 @@ public class Passengers extends javax.swing.JPanel {
 		goBtn.setText("Ir");
 		continueBtn.setText("Continuar");
 		clearBtn.setText("Limpiar");
+		helpBtn.setText("?");
+		helpBtn.setFocusPainted(false);
+		helpBtn.setBorderPainted(false);
+		helpBtn.setFont(new Font("Segoe UI", 1, 12));
+
 		table.setModel(model);
 		tableScroll.setViewportView(table);
 		javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(this);
@@ -108,9 +115,13 @@ public class Passengers extends javax.swing.JPanel {
 								.addComponent(tableScroll,
 										javax.swing.GroupLayout.PREFERRED_SIZE,
 										0, Short.MAX_VALUE)
-								.addContainerGap()));
+								.addContainerGap())
+						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+								panelLayout.createSequentialGroup()
+										.addComponent(helpBtn)));
 		panelLayout.setVerticalGroup(
 				panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(helpBtn)
 						.addGroup(panelLayout.createSequentialGroup()
 								.addContainerGap()
 								.addComponent(title)
@@ -179,6 +190,12 @@ public class Passengers extends javax.swing.JPanel {
 			}
 			onContinue.change(passengers);
 		});
+		helpBtn.addActionListener((act) -> {
+			JOptionPane.showMessageDialog(this.getParent(), ""
+					+ "Ruta al archivo: Ruta de la lista de pasajeros.\n"
+					+ "Limpiar: Vacía la lista de pasajeros.\n"
+					+ "Continuar: Confirma la lista de pasajeros y continúa.");
+		});
 	}
 
 	public void loadPassengers(String path) {
@@ -222,6 +239,7 @@ public class Passengers extends javax.swing.JPanel {
 	private javax.swing.JButton fileBtn;
 	private javax.swing.JButton goBtn;
 	private javax.swing.JButton clearBtn;
+	private javax.swing.JButton helpBtn;
 	private javax.swing.JLabel pathLbl;
 	private javax.swing.JLabel title;
 	private javax.swing.JLabel rowCountLbl;

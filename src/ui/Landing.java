@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Font;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -31,6 +32,7 @@ public class Landing extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         nameLbl = new javax.swing.JLabel();
         leftBtn = new javax.swing.JButton();
+        helpBtn = new javax.swing.JButton();
         planeView = new PlaneView(flight);
         jScrollPane4.setViewportView(planeView);
 
@@ -38,14 +40,15 @@ public class Landing extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setText("Pasajero actual");
-
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel12.setText("Nombre:");
-
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel14.setText("Asiento:");
-
         leftBtn.setText("Salió");
+        helpBtn.setText("?");
+        helpBtn.setFocusPainted(false);
+        helpBtn.setBorderPainted(false);
+        helpBtn.setFont(new Font("Segoe UI", 1, 12));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,10 +91,14 @@ public class Landing extends javax.swing.JFrame {
                                                                                         javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                         javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                         Short.MAX_VALUE))))))
-                                        .addContainerGap())));
+                                        .addContainerGap()))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                                        layout.createSequentialGroup()
+                                                                        .addComponent(helpBtn)));
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGap(0, 351, Short.MAX_VALUE)
+                                        .addComponent(helpBtn)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
                                         .addContainerGap()
@@ -137,6 +144,15 @@ public class Landing extends javax.swing.JFrame {
                 Storage.saveJsonTo(Flight.PATH + flight.getPlane().getId() + ".json", flight);
                 nextPassenger();
             }
+        });
+        helpBtn.addActionListener((act) -> {
+                JOptionPane.showMessageDialog(this, ""
+                                + "Panel izquierdo: Vista del estado de los asientos del avión:\n"
+                                + "         - Verde: Asiento libre.\n"
+                                + "         - Naranja: Asiento seleccionado actualmente.\n"
+                                + "         - Rojo: Asiento ocupado.\n\n"
+                                + "Pasajero actual: Pasajero con prioridad de salida actual (quien debería salir actualmente).\n\n"
+                                + "Nota: Cuando el avión esté vacío, la pestaña se cerrará y el vuelo se eliminará de la lista. La salida de un pasajero se guarda de forma automática.");
         });
     }
 
@@ -186,6 +202,7 @@ public class Landing extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JButton leftBtn;
+    private javax.swing.JButton helpBtn;
     private javax.swing.JLabel nameLbl;
     private javax.swing.JLabel seatLbl;
     private PlaneView planeView;
