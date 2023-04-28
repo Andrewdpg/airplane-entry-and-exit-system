@@ -21,7 +21,16 @@ public class PlaneView extends JPanel {
 
     private Flight flight;
 
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
+    }
+
     public PlaneView() {
+
     }
 
     public PlaneView(Flight flight) {
@@ -37,6 +46,7 @@ public class PlaneView extends JPanel {
         setLayout(new GridLayout(flight.getPlane().getColumns(), flight.getPlane().getRows(), spaceBetween,
                 spaceBetween));
         setSize(panelWidth, panelHeight);
+
         try {
             LookAndFeel previous = UIManager.getLookAndFeel();
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -47,6 +57,7 @@ public class PlaneView extends JPanel {
                     button.setText((index + 1) + "" + Character.valueOf((char) (65 + i)));
                     button.setFont(new Font("Segoe UI", 1, 11));
                     add(button);
+                    
                     if (flight.getPassengers()[index][i] != null) {
                         setSeatAs(index, i, TAKEN);
                     } else {
