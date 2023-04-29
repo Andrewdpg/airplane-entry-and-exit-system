@@ -137,7 +137,7 @@ public class Home extends javax.swing.JPanel {
     }
 
     public void setActions() {
-        addPlaneBtn.addActionListener((act) -> NewPlane.run());
+        addPlaneBtn.addActionListener((act) -> NewPlane.run(this.getLocationOnScreen()));
         updateBtn.addActionListener((act) -> initList());
         nextBtn.addActionListener((act) -> {
             if (planeList.getSelectedValue() != null) {

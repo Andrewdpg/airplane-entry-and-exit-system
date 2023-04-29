@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Point;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
@@ -253,7 +254,7 @@ public class NewPlane extends javax.swing.JFrame {
         pack();
     }
 
-    public void init() {
+    public void init(Point location) {
         try {
             javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException ex) {
@@ -271,6 +272,7 @@ public class NewPlane extends javax.swing.JFrame {
         }
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        setLocation(location);
         setVisible(true);
         setAlwaysOnTop(true);
         initComponents();
@@ -321,19 +323,19 @@ public class NewPlane extends javax.swing.JFrame {
         });
     }
 
-    public static void run() {
-        new NewPlane().init();
+    public static void run(Point location) {
+        new NewPlane().init(location);
     }
 
     public boolean validRowCount() {
         try {
             rowCount = Integer.parseInt(rowsTf.getText());
             if (rowCount < 10) {
-                JOptionPane.showMessageDialog(null, "Debe haber al menos 10 filas");
+                JOptionPane.showMessageDialog(this, "Debe haber al menos 10 filas");
                 return false;
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Valor de filas inválido", "Error",
+            JOptionPane.showMessageDialog(this, "Valor de filas inválido", "Error",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -343,7 +345,7 @@ public class NewPlane extends javax.swing.JFrame {
     public boolean validFlightID() {
         for (String name : Storage.getFileNamesAt("data/plane")) {
             if (name.replace(".json", "").equals(planeIdTf.getText())) {
-                JOptionPane.showMessageDialog(null, "La id del avión ya existe");
+                JOptionPane.showMessageDialog(this, "La id del avión ya existe");
                 return false;
             }
         }
@@ -357,12 +359,12 @@ public class NewPlane extends javax.swing.JFrame {
             newInit = Integer.parseInt(initRowTf.getText());
             newEnd = Integer.parseInt(endRowTf.getText());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Valores ingresados inválidos", "Error",
+            JOptionPane.showMessageDialog(this, "Valores ingresados inválidos", "Error",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
         if (newInit > rowCount || newEnd > rowCount || newInit <= 0 || newEnd <= 0) {
-            JOptionPane.showMessageDialog(null, "Valores fuera del rango de filas", "Error",
+            JOptionPane.showMessageDialog(this, "Valores fuera del rango de filas", "Error",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -370,7 +372,7 @@ public class NewPlane extends javax.swing.JFrame {
             int init = sections.get(i).getStart();
             int end = sections.get(i).getEnd();
             if ((newInit >= init && newInit <= end) || (newEnd >= init && newEnd <= end)) {
-                JOptionPane.showMessageDialog(null, "Rango de sección ya asignado", "Error",
+                JOptionPane.showMessageDialog(this, "Rango de sección ya asignado", "Error",
                         JOptionPane.ERROR_MESSAGE);
                 return false;
             }
