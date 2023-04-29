@@ -1,5 +1,11 @@
 # airplane-entry-and-exit-system
 
+Integrantes:
+
+  - Andrés David Parra García
+  - Rafaela Sofia Ruiz Pizarro
+  - Gerson de Jesus Hurtado Borja
+  
 [Vista del funcionamiento del programa - Youtube](https://youtu.be/qkUy7HWQRCQ)
 
 Notas:
