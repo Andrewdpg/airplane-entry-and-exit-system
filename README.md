@@ -18,3 +18,5 @@ Notas:
    En caso de querer emplearlos (Más que nada el vuelo lleno) deben moverlos a sus respectivas carpetas (data/flight/ o data/plane/) y renombrarlos como "default.txt".
    
  - Encontrarán signos de interrogación (?) que darán más información/contexto de cada página.
+
+ - Versión de java: openjdk 11.0.16.1 2022-08-12 LTS
